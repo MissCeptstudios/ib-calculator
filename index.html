@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Investment Banking Calculator</title>
-    <link rel="manifest" href="./manifest.json">
+    <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#f59e0b">
     <link rel="apple-touch-icon" href="icon-192.png">
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -197,30 +197,57 @@
           }, [mode]);
           
           useEffect(() => {
+            console.log('🔍 PWA Install Debug - Starting checks...');
+            
             // Check if app is already installed/running in standalone mode
             const isStandalone = window.matchMedia('(display-mode: standalone)').matches || 
                                 window.navigator.standalone === true ||
                                 document.referrer.includes('android-app://') ||
                                 window.location.search.includes('utm_source=homescreen');
             
+            console.log('📱 Standalone mode detected:', isStandalone);
+            console.log('🌐 Display mode:', window.matchMedia('(display-mode: standalone)').matches);
+            console.log('🍎 iOS standalone:', window.navigator.standalone);
+            
             // Only show install button if not in standalone mode
             if (!isStandalone) {
+              console.log('✅ Not in standalone mode - setting up install listeners');
+              
               // Listen for the beforeinstallprompt event
               const handleBeforeInstallPrompt = (e) => {
+                console.log('🎯 beforeinstallprompt event fired!', e);
                 e.preventDefault();
                 window.deferredPrompt = e;
                 setShowInstallButton(true);
+                console.log('📱 Install button should now be visible');
               };
 
               // Listen for successful app installation
               const handleAppInstalled = () => {
+                console.log('✅ App installed successfully');
                 setShowInstallButton(false);
                 window.deferredPrompt = null;
-                console.log('PWA was installed');
               };
+
+              // Check if we already have a deferred prompt
+              if (window.deferredPrompt) {
+                console.log('🔄 Found existing deferred prompt');
+                setShowInstallButton(true);
+              }
 
               window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
               window.addEventListener('appinstalled', handleAppInstalled);
+
+              // Debug: Check PWA criteria
+              setTimeout(() => {
+                console.log('🔍 PWA Criteria Debug:');
+                console.log('- HTTPS:', location.protocol === 'https:');
+                console.log('- Service Worker registered:', 'serviceWorker' in navigator);
+                console.log('- Has manifest:', document.querySelector('link[rel="manifest"]') !== null);
+                console.log('- User Agent:', navigator.userAgent);
+                console.log('- Is Chrome/Edge:', /Chrome|Edge/.test(navigator.userAgent));
+                console.log('- Install button state:', showInstallButton);
+              }, 3000);
 
               // Cleanup event listeners
               return () => {
@@ -230,7 +257,7 @@
             } else {
               // App is already running in standalone mode
               setShowInstallButton(false);
-              console.log('App is running in standalone mode');
+              console.log('ℹ️ App is running in standalone mode - no install button needed');
             }
           }, []);
 
@@ -565,23 +592,25 @@
                         variant="install"
                         size="small"
                         onClick={() => {
+                          console.log('🖱️ Install button clicked');
                           if (window.deferredPrompt) {
+                            console.log('📱 Showing install prompt...');
                             window.deferredPrompt.prompt();
                             window.deferredPrompt.userChoice.then((choiceResult) => {
-                              console.log('User choice:', choiceResult.outcome);
+                              console.log('👤 User choice:', choiceResult.outcome);
                               if (choiceResult.outcome === 'accepted') {
-                                console.log('User accepted the install prompt');
+                                console.log('✅ User accepted the install prompt');
                                 setShowInstallButton(false);
                               } else {
-                                console.log('User dismissed the install prompt');
+                                console.log('❌ User dismissed the install prompt');
                               }
                               window.deferredPrompt = null;
                             }).catch((error) => {
-                              console.error('Error during install prompt:', error);
+                              console.error('❗ Error during install prompt:', error);
                               setShowInstallButton(false);
                             });
                           } else {
-                            console.log('No install prompt available');
+                            console.log('⚠️ No install prompt available');
                             setShowInstallButton(false);
                           }
                         }}
@@ -589,6 +618,13 @@
                       >
                         📱 Install App
                       </Button>
+                    )}
+                    {/* Debug info - remove in production */}
+                    {process.env.NODE_ENV === 'development' && (
+                      <div className="text-xs text-gray-500 mt-1">
+                        Debug: Install={showInstallButton ? 'Yes' : 'No'} | 
+                        Standalone={window.matchMedia('(display-mode: standalone)').matches ? 'Yes' : 'No'}
+                      </div>
                     )}
                   </div>
                   
@@ -607,7 +643,60 @@
                 </p>
               </div>
 
-              {/* Tutorial Help Cloud */}
+              {/* Debug Panel - Always Visible for Testing */}
+              <div className={`mb-4 p-3 rounded-lg border text-xs ${
+                isDarkMode ? 'bg-gray-800 border-gray-600 text-gray-300' : 'bg-blue-50 border-blue-200 text-gray-700'
+              }`}>
+                <div className="font-semibold mb-2">🔧 PWA Debug Panel</div>
+                <div className="space-y-1">
+                  <div>Protocol: {location.protocol}</div>
+                  <div>Browser: {navigator.userAgent.includes('Chrome') ? 'Chrome' : navigator.userAgent.includes('Safari') ? 'Safari' : 'Other'}</div>
+                  <div>Standalone: {window.matchMedia('(display-mode: standalone)').matches ? 'Yes' : 'No'}</div>
+                  <div>SW Support: {'serviceWorker' in navigator ? 'Yes' : 'No'}</div>
+                  <div>Manifest Link: {document.querySelector('link[rel="manifest"]') ? 'Found' : 'Missing'}</div>
+                  <div>Install Button: {showInstallButton ? 'Showing' : 'Hidden'}</div>
+                  <div>Deferred Prompt: {typeof window.deferredPrompt !== 'undefined' && window.deferredPrompt ? 'Available' : 'Not Available'}</div>
+                </div>
+                
+                {/* Force show install button for testing */}
+                <div className="mt-3 space-x-2">
+                  <button 
+                    onClick={() => setShowInstallButton(!showInstallButton)}
+                    className="px-2 py-1 bg-blue-600 text-white rounded text-xs"
+                  >
+                    Toggle Install Button
+                  </button>
+                  <button 
+                    onClick={() => {
+                      // Manually trigger install for testing
+                      if (window.deferredPrompt) {
+                        window.deferredPrompt.prompt();
+                      } else {
+                        alert('No install prompt available. Check PWA requirements.');
+                      }
+                    }}
+                    className="px-2 py-1 bg-green-600 text-white rounded text-xs"
+                  >
+                    Test Install
+                  </button>
+                  <button 
+                    onClick={() => {
+                      console.log('=== PWA DEBUG INFO ===');
+                      console.log('URL:', location.href);
+                      console.log('Protocol:', location.protocol);
+                      console.log('User Agent:', navigator.userAgent);
+                      console.log('ServiceWorker support:', 'serviceWorker' in navigator);
+                      console.log('Manifest element:', document.querySelector('link[rel="manifest"]'));
+                      console.log('Standalone mode:', window.matchMedia('(display-mode: standalone)').matches);
+                      console.log('Deferred prompt:', window.deferredPrompt);
+                      console.log('Install button state:', showInstallButton);
+                    }}
+                    className="px-2 py-1 bg-purple-600 text-white rounded text-xs"
+                  >
+                    Log Debug Info
+                  </button>
+                </div>
+              </div>
               {showTutorial && (
                 <div className="mb-4">
                   <div className={`relative w-full rounded-lg border shadow-lg ${
@@ -1000,10 +1089,19 @@
         ReactDOM.render(<IBCalculator />, document.getElementById('root'));
     </script>
     <script>
+        // Register Service Worker
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', function() {
-        navigator.serviceWorker.register('./sw.js')
+            navigator.serviceWorker.register('./sw.js')
+              .then(function(registration) {
+                console.log('✅ Service Worker registered successfully:', registration.scope);
+              })
+              .catch(function(error) {
+                console.log('❌ Service Worker registration failed:', error);
+              });
           });
+        } else {
+          console.log('❌ Service Worker not supported');
         }
     </script>
 </body>
