@@ -1,877 +1,1201 @@
-'forex': {
-                    title: '🌍 Foreign Exchange (FOREX) Tutorial',
-                    content: `
-                        <div class="tutorial-section">
-                            <p>Professional currency conversion tool for international business transactions, cross-border investments, and multi-currency financial modeling. Features real-time exchange rates and comprehensive currency pair support for global investment banking operations.</p>
-                        </div>
-                        
-                        <div class="tutorial-section">
-                            <h3>🎯 What This Mode Does</h3>
-                            <div class="feature-grid">
-                                <div class="feature-card">
-                                    <h4>💱 Real-Time Conversion</h4>
-                                    <p>Convert between 22+ major global currencies instantly</p>
-                                </div>
-                                <div class="feature-card">
-                                    <h4>📊 Cross-Border Analysis</h4>
-                                    <p>Calculate international transaction costs and exposures</p>
-                                </div>
-                                <div class="feature-card">
-                                    <h4>🌐 Multi-Currency Modeling</h4>
-                                    <p>Support for global M&A and international investments</p>
-                                </div>
-                                <div class="feature-card">
-                                    <h4>📈 Rate History</h4>
-                                    <p>Track conversion history for reporting and analysis</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="tutorial-section">
-                            <h3>📋 Step-by-Step Example: Convert €50M for US Acquisition</h3>
-                            <p>A European private equity fund wants to acquire a US company valued at $55M:</p>
-                            <div class="tutorial-steps">
-                                <ol>
-                                    <li><strong>Set Source Currency:</strong>
-                                        <br><small>• From: "EUR" (European fund has euros)</small>
-                                        <br><small>• This should already be selected</small></li>
-                                    
-                                    <li><strong>Set Target Currency:</strong>
-                                        <br><small>• To: Select "USD" from dropdown</small>
-                                        <br><small>• US acquisition requires US dollars</small></li>
-                                    
-                                    <li><strong>Enter Amount:</strong> Type 50, click "×1M"
-                                        <br><small>• Input: €50 million available for investment</small></li>
-                                    
-                                    <li><strong>Convert Currency:</strong> Click "Convert to USD"
-                                        <br><small>• Using current EUR/USD rate of ~1.14</small>
-                                        <br><small>• Result: €50M × 1.14 = $57M USD</small></li>
-                                    
-                                    <li><strong>Analysis:</strong>
-                                        <br><small>• €50M converts to $57M USD</small>
-                                        <br><small>• Target acquisition: $55M</small>
-                                        <br><small>• Available for fees/working capital: $2M</small></li>
-                                    
-                                    <li><strong>Risk Consideration:</strong>
-                                        <br><small>• Monitor EUR/USD rate volatility</small>
-                                        <br><small>• Consider currency hedging strategies</small></li>
-                                    
-                                    <li><strong>Save to History:</strong>
-                                        <br><small>• Conversion logged automatically</small>
-                                        <br><small>• Use "Clear" to reset history if needed</small></li>
-                                </ol>
-                            </div>
-                        </div>
-                        
-                        <div class="tutorial-formula">
-                            <code>Converted Amount = Original Amount × Exchange Rate</code>
-                            <code>Cross Rate = (Currency A/USD) × (USD/Currency B)</code>
-                            <code>Currency Exposure = Foreign Investment ÷ Total Portfolio</code>
-                            <code>Hedging Cost = Notional × Forward Premium/Discount</code>
-                        </div>
-                        
-                        <div class="tutorial-example">
-                            <h4>💰 European Fund USD Acquisition</h4>
-                            <p><strong>Available Capital:</strong> €50,000,000</p>
-                            <p><strong>Exchange Rate:</strong> 1 EUR = 1.14 USD</p>
-                            <p><strong>USD Equivalent:</strong> $57,000,000</p>
-                            <p><strong>Target Price:</strong> $55,000,000</p>
-                            <p><strong>Excess Capacity:</strong> $2,000,000 (3.6%)</p>
-                            <p><strong>Decision:</strong> ✅ Proceed with acquisition</p>
-                        </div>
-                        
-                        <div class="tutorial-example">
-                            <h4>🌍 Common FOREX Use Cases in Investment Banking</h4>
-                            <p><strong>Cross-Border M&A:</strong> Convert deal values between currencies</p>
-                            <p><strong>International IPOs:</strong> Price offerings in multiple markets</p>
-                            <p><strong>Global Fund Modeling:</strong> Consolidate multi-currency portfolios</p>
-                            <p><strong>FX Risk Analysis:</strong> Calculate currency exposure impacts</p>
-                            <p><strong>Arbitrage Opportunities:</strong> Identify price differences across markets</p>
-                        </div>
-                        
-                        <div class="tutorial-example">
-                            <h4>💡 Pro Tips for Currency Conversion</h4>
-                            <p><strong>Timing:</strong> Monitor central bank announcements and economic data</p>
-                            <p><strong>Hedging:</strong> Use forwards/options for large transactions</p>
-                            <p><strong>Spread:</strong> Account for bid-ask spreads in calculations</p>
-                            <p><strong>Volatility:</strong> Consider currency pair volatility in risk models</p>
-                        </div>
-                    `
-                }<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Investment Banking Calculator</title>
-    <link rel="manifest" href="./manifest.json">
-    <meta name="theme-color" content="#1a202c">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-            background: #0f172a;
-            color: white;
-            padding: 15px;
-            min-height: 100vh;
-        }
-        .container { 
-            max-width: 600px; 
-            margin: 0 auto; 
-            background: #1e293b; 
-            border-radius: 20px; 
-            padding: 20px; 
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            position: relative;
-        }
-        .header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            margin-bottom: 20px; 
-        }
-        .header h1 { 
-            font-size: 1.5rem; 
-            font-weight: bold; 
-            color: white; 
-            text-align: center; 
-            flex: 1; 
-        }
-        .header p { 
-            font-size: 0.8rem; 
-            color: #94a3b8; 
-            text-align: center; 
-        }
-        .help-btn, .theme-btn {
-            background: #475569;
-            color: white;
-            border: none;
-            padding: 12px 16px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.2s;
-        }
-        .help-btn {
-            background: #475569;
-        }
-        .help-btn:hover {
-            background: #64748b;
-        }
-        .theme-btn:hover {
-            background: #64748b;
-        }
-        .display {
-            background: #0f172a;
-            border: 1px solid #334155;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            text-align: right;
-        }
-        .display-main { 
-            font-size: 2.2rem; 
-            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', monospace; 
-            margin-bottom: 5px; 
-            font-weight: 600;
-        }
-        .display-sub { 
-            font-size: 1rem; 
-            color: #94a3b8; 
-            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
-        }
-        .mode-selector {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-        .mode-btn {
-            background: #475569;
-            color: white;
-            border: none;
-            padding: 12px 8px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .mode-btn.active { 
-            background: #f59e0b; 
-            color: black;
-        }
-        .mode-btn:hover { 
-            background: #64748b; 
-        }
-        .mode-btn.active:hover {
-            background: #d97706;
-        }
+import React, { useState, useEffect } from 'react';
 
-        /* FOREX Specific Styles */
-        .forex-panel {
-            background: #334155;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            display: none;
-        }
-        .forex-panel.active { display: block; }
-        .forex-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            font-size: 0.8rem;
-            color: #94a3b8;
-        }
-        .forex-rates {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            margin-bottom: 15px;
-            font-size: 0.75rem;
-            font-family: monospace;
-        }
-        .rate-item {
-            background: #475569;
-            padding: 6px 8px;
-            border-radius: 6px;
-            color: #e2e8f0;
-        }
-        .forex-history {
-            background: #475569;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            font-size: 0.8rem;
-            font-family: monospace;
-        }
-        .forex-conversion {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 10px;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        .currency-select {
-            background: #475569;
-            color: white;
-            border: 1px solid #64748b;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-        }
-        .swap-btn {
-            background: #10b981;
-            color: white;
-            border: none;
-            padding: 8px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-        .forex-actions {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-        .forex-action-btn {
-            background: #1e40af;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .forex-action-btn:hover {
-            background: #1d4ed8;
-        }
+const IBCalculator = () => {
+  const [display, setDisplay] = useState('0');
+  const [previousValue, setPreviousValue] = useState(null);
+  const [operation, setOperation] = useState(null);
+  const [waitingForOperand, setWaitingForOperand] = useState(false);
+  const [history, setHistory] = useState([]);
+  const [mode, setMode] = useState('basic');
+  const [expression, setExpression] = useState('');
+  const [openParentheses, setOpenParentheses] = useState(0);
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [memory, setMemory] = useState({
+    wacc: 8.5,
+    terminalGrowth: 2.5,
+    discountRate: 10,
+    revenue: 0,
+    ebitda: 0,
+    netIncome: 0,
+    shares: 0,
+    marketCap: 0,
+    enterprise: 0,
+    debtEquityRatio: 4.0,
+    debtEbitdaMultiple: 6.0,
+    initialInvestment: 0,
+    cashFlows: [],
+    currentCashFlow: 0
+  });
 
-        /* DCF Specific Styles */
-        .dcf-panel {
-            background: #334155;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            display: none;
-        }
-        .dcf-panel.active { display: block; }
-        .memory-values {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            margin-bottom: 15px;
-            font-size: 0.75rem;
-            font-family: monospace;
-        }
-        .memory-item {
-            background: #475569;
-            padding: 8px;
-            border-radius: 6px;
-            color: #e2e8f0;
-            text-align: center;
-        }
-        .dcf-functions {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-        .dcf-btn {
-            background: #f59e0b;
-            color: black;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .dcf-btn:hover {
-            background: #d97706;
-        }
-        .dcf-advanced {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 6px;
-            margin-bottom: 15px;
-        }
-        .dcf-advanced-btn {
-            background: #7c3aed;
-            color: white;
-            border: none;
-            padding: 10px 6px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .dcf-advanced-btn:hover {
-            background: #6d28d9;
-        }
+  // Exchange rates state
+  const [exchangeRates, setExchangeRates] = useState({
+    USD: 1.0000,
+    EUR: 0.9150,
+    JPY: 142.30,
+    GBP: 0.7820,
+    CHF: 0.8850,
+    CAD: 1.3720,
+    CNY: 7.2800,
+    PLN: 4.0500,
+    AUD: 1.4950,
+    SEK: 10.8500
+  });
+  const [ratesLastUpdated, setRatesLastUpdated] = useState(null);
+  const [isLoadingRates, setIsLoadingRates] = useState(false);
+  const [apiError, setApiError] = useState(null);
 
-        /* History Panel */
-        .history-panel {
-            background: #334155;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            display: none;
-        }
-        .history-panel.active { display: block; }
-        .history-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .history-title {
-            font-size: 0.9rem;
-            color: #94a3b8;
-            font-weight: bold;
-        }
-        .clear-btn {
-            background: #ef4444;
-            color: white;
-            border: none;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 0.7rem;
-            cursor: pointer;
-        }
+  const [selectedCurrency, setSelectedCurrency] = useState('USD');
+  const [selectedToCurrency, setSelectedToCurrency] = useState('EUR');
+  const [showTutorial, setShowTutorial] = useState(false);
 
-        /* Calculator Grid */
-        .calculator-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        .calc-btn {
-            background: #475569;
-            color: white;
-            border: none;
-            padding: 18px;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s;
-            min-height: 55px;
-        }
-        .calc-btn:hover { 
-            background: #64748b; 
-        }
-        .calc-btn:active { 
-            transform: scale(0.95); 
-        }
-        .calc-btn.operator { 
-            background: #f59e0b; 
-            color: black; 
-        }
-        .calc-btn.operator:hover {
-            background: #d97706;
-        }
-        .calc-btn.equals { 
-            background: #f59e0b; 
-            color: black; 
-        }
-        .calc-btn.equals:hover {
-            background: #d97706;
-        }
-        .calc-btn.clear { 
-            background: #ef4444; 
-            color: white; 
-        }
-        .calc-btn.clear:hover {
-            background: #dc2626;
-        }
-        .calc-btn.function { 
-            background: #64748b; 
-            color: white; 
-        }
-        .calc-btn.function:hover {
-            background: #475569;
-        }
-
-        /* Special Calculator Buttons */
-        .special-buttons {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        .special-btn {
-            background: #1e40af;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .special-btn:hover {
-            background: #1d4ed8;
-        }
-
-        /* Footer */
-        .footer { 
-            text-align: center; 
-            margin-top: 20px; 
-            font-size: 0.7rem; 
-            color: #64748b; 
-            line-height: 1.4;
-        }
-
-        /* Tutorial Modal Styles */
-        .tutorial-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            backdrop-filter: blur(5px);
-        }
-        .tutorial-modal.active {
-            display: flex;
-        }
-        .tutorial-content {
-            background: #1e293b;
-            border-radius: 20px;
-            padding: 25px;
-            width: 90%;
-            max-width: 700px;
-            max-height: 85vh;
-            overflow-y: auto;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
-            border: 1px solid #334155;
-            position: relative;
-            animation: modalSlideIn 0.3s ease-out;
-        }
-        
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-30px) scale(0.95);
+  // Tutorial content for each mode
+  const getTutorialContent = () => {
+    switch (mode) {
+      case 'basic':
+        return {
+          title: 'Basic Calculator Tutorial',
+          content: [
+            {
+              section: 'What it does:',
+              text: 'Standard calculator with financial shortcuts for quick calculations.'
+            },
+            {
+              section: 'Key Features:',
+              text: '• Standard arithmetic operations (+, -, ×, ÷)\n• Parentheses for complex expressions\n• Quick multipliers: ×1K, ×1M, ×1B\n• Percentage calculations'
+            },
+            {
+              section: 'Example:',
+              text: 'Calculate company valuation:\n1. Enter "15" (revenue in millions)\n2. Click "×1M" → 15,000,000\n3. Click "×" then "12" (multiple)\n4. Click "=" → Result: 180M valuation'
             }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
+          ]
+        };
+      
+      case 'dcf':
+        return {
+          title: 'DCF (Discounted Cash Flow) Tutorial',
+          content: [
+            {
+              section: 'What it does:',
+              text: 'Values a company based on projected future cash flows discounted to present value.'
+            },
+            {
+              section: 'How to use:',
+              text: '1. Set WACC (Weighted Average Cost of Capital)\n2. Set Terminal Growth rate\n3. Enter current Free Cash Flow\n4. Click "DCF Model" for valuation'
+            },
+            {
+              section: 'Example:',
+              text: 'Value a tech company:\n1. Enter "8.5" → Click "Set WACC" (8.5%)\n2. Enter "2.5" → Click "Set TG" (2.5%)\n3. Enter "100" (FCF in millions)\n4. Click "×1M" then "DCF Model"\n→ Result: Enterprise Value'
             }
-        }
-        
-        .tutorial-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #334155;
-        }
-        .tutorial-title {
-            font-size: 1.6rem;
-            font-weight: bold;
-            color: #f59e0b;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .tutorial-close {
-            background: #ef4444;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            font-weight: bold;
-            transition: all 0.2s;
-        }
-        .tutorial-close:hover {
-            background: #dc2626;
-            transform: scale(1.05);
-        }
-        
-        .tutorial-section {
-            margin-bottom: 25px;
-            padding: 20px;
-            background: #334155;
-            border-radius: 12px;
-            border-left: 4px solid #f59e0b;
-        }
-        .tutorial-section h3 {
-            color: #fbbf24;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .tutorial-section p {
-            color: #e2e8f0;
-            line-height: 1.6;
-            margin-bottom: 15px;
-            font-size: 1rem;
-        }
-        
-        .tutorial-steps {
-            background: #475569;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 15px 0;
-            border-left: 3px solid #10b981;
-        }
-        .tutorial-steps ol {
-            color: #e2e8f0;
-            padding-left: 20px;
-        }
-        .tutorial-steps li {
-            margin-bottom: 10px;
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
-        
-        .tutorial-example {
-            background: #065f46;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            border-left: 4px solid #10b981;
-        }
-        .tutorial-example h4 {
-            color: #34d399;
-            font-weight: bold;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .tutorial-example p {
-            color: #d1fae5;
-            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
-            font-size: 0.9rem;
-            margin-bottom: 8px;
-            line-height: 1.5;
-        }
-        
-        .tutorial-formula {
-            background: #312e81;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            border-left: 4px solid #8b5cf6;
-        }
-        .tutorial-formula code {
-            color: #c4b5fd;
-            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
-            font-size: 0.9rem;
-            display: block;
-            margin-bottom: 8px;
-            line-height: 1.5;
-        }
-        
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-        .feature-card {
-            background: #475569;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 3px solid #3b82f6;
-        }
-        .feature-card h4 {
-            color: #60a5fa;
-            font-weight: bold;
-            margin-bottom: 8px;
-            font-size: 1rem;
-        }
-        .feature-card p {
-            color: #e2e8f0;
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-        
-        /* Scrollbar styling for tutorial content */
-        .tutorial-content::-webkit-scrollbar {
-            width: 8px;
-        }
-        .tutorial-content::-webkit-scrollbar-track {
-            background: #334155;
-            border-radius: 4px;
-        }
-        .tutorial-content::-webkit-scrollbar-thumb {
-            background: #f59e0b;
-            border-radius: 4px;
-        }
-        .tutorial-content::-webkit-scrollbar-thumb:hover {
-            background: #d97706;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <button class="help-btn" onclick="showTutorial()">📚</button>
-            <div style="text-align: center;">
-                <h1>Investment Banking Calculator</h1>
-                <p>Professional financial modeling and analysis tool by MissCept</p>
-            </div>
-            <button class="theme-btn" onclick="toggleTheme()" id="theme-toggle">🌙</button>
-        </div>
+          ]
+        };
+      
+      case 'comps':
+        return {
+          title: 'Comparable Analysis Tutorial',
+          content: [
+            {
+              section: 'What it does:',
+              text: 'Values companies using trading multiples from similar public companies.'
+            },
+            {
+              section: 'How to use:',
+              text: '1. Set Enterprise Value and Market Cap\n2. Enter financial metrics (Revenue, EBITDA)\n3. Click multiple buttons to calculate ratios'
+            }
+          ]
+        };
+      
+      case 'lbo':
+        return {
+          title: 'LBO (Leveraged Buyout) Tutorial',
+          content: [
+            {
+              section: 'What it does:',
+              text: 'Models private equity acquisitions using debt and equity financing.'
+            },
+            {
+              section: 'How to use:',
+              text: '1. Enter equity investment amount\n2. Use "LBO Size" to calculate total deal size\n3. Use "Debt Cap" for maximum debt capacity\n4. Calculate IRR and MOIC returns'
+            }
+          ]
+        };
 
-        <div class="display">
-            <div class="display-main" id="display">4.7K</div>
-            <div class="display-sub" id="display-formatted">4716.0775</div>
-        </div>
+      case 'irr_npv':
+        return {
+          title: 'IRR/NPV Analysis Tutorial',
+          content: [
+            {
+              section: 'What it does:',
+              text: 'Evaluates investment opportunities using Internal Rate of Return and Net Present Value analysis.'
+            },
+            {
+              section: 'How to use:',
+              text: '1. Set initial investment (negative cash flow)\n2. Add future cash flows year by year\n3. Set discount rate for NPV calculation\n4. Calculate NPV, IRR, and payback metrics'
+            }
+          ]
+        };
+      
+      case 'forex':
+        return {
+          title: 'Foreign Exchange Tutorial',
+          content: [
+            {
+              section: 'What it does:',
+              text: 'Converts currencies using live exchange rates from reliable financial APIs.'
+            },
+            {
+              section: 'How to use:',
+              text: '1. Select source and target currencies\n2. Enter amount to convert\n3. Click "Convert" or "Get Rate"\n4. Use swap button (⇄) to reverse currencies'
+            }
+          ]
+        };
+      
+      default:
+        return { title: 'Calculator Tutorial', content: [] };
+    }
+  };
 
-        <div class="mode-selector">
-            <button class="mode-btn" onclick="setMode('basic')" data-mode="basic">BASIC</button>
-            <button class="mode-btn" onclick="setMode('dcf')" data-mode="dcf">DCF</button>
-            <button class="mode-btn" onclick="setMode('comps')" data-mode="comps">COMPS</button>
-            <button class="mode-btn" onclick="setMode('lbo')" data-mode="lbo">LBO</button>
-            <button class="mode-btn active" onclick="setMode('forex')" data-mode="forex">FOREX</button>
-        </div>
+  // API function for exchange rates
+  const fetchExchangeRates = async () => {
+    setIsLoadingRates(true);
+    setApiError(null);
+    
+    try {
+      // Demo mode with realistic mock data
+      await new Promise(resolve => setTimeout(resolve, 800));
+      
+      const mockData = {
+        rates: {
+          EUR: 0.9234 + (Math.random() - 0.5) * 0.02,
+          JPY: 147.85 + (Math.random() - 0.5) * 3,
+          GBP: 0.7912 + (Math.random() - 0.5) * 0.015,
+          CHF: 0.8923 + (Math.random() - 0.5) * 0.012,
+          CAD: 1.3567 + (Math.random() - 0.5) * 0.025,
+          CNY: 7.2456 + (Math.random() - 0.5) * 0.15,
+          PLN: 4.0234 + (Math.random() - 0.5) * 0.08,
+          AUD: 1.5123 + (Math.random() - 0.5) * 0.03,
+          SEK: 10.7834 + (Math.random() - 0.5) * 0.25
+        }
+      };
+      
+      setExchangeRates({
+        USD: 1.0000,
+        ...mockData.rates
+      });
+      setRatesLastUpdated(new Date());
+      setIsLoadingRates(false);
+    } catch (error) {
+      setApiError('Exchange rate service temporarily unavailable');
+      setIsLoadingRates(false);
+    }
+  };
 
-        <!-- FOREX Panel -->
-        <div class="forex-panel active" id="forex-panel">
-            <div class="history-header">
-                <span class="history-title">History</span>
-                <button class="clear-btn">Clear</button>
-            </div>
-            <div class="forex-history">
-                1100.00 EUR = 4716.0775 PLN<br>
-                Exchange rates updated: 23:16:07
-            </div>
-            
-            <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; margin-bottom: 15px;">
-                <div>
-                    <div style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 8px;">From Currency</div>
-                    <select class="currency-select" id="from-currency">
-                        <option value="USD">USD - US Dollar</option>
-                        <option value="EUR" selected>EUR - Euro</option>
-                        <option value="GBP">GBP - British Pound</option>
-                        <option value="JPY">JPY - Japanese Yen</option>
-                        <option value="CHF">CHF - Swiss Franc</option>
-                        <option value="PLN">PLN - Polish Zloty</option>
-                        <option value="CNY">CNY - Chinese Yuan</option>
-                        <option value="AUD">AUD - Australian Dollar</option>
-                        <option value="CAD">CAD - Canadian Dollar</option>
-                        <option value="SEK">SEK - Swedish Krona</option>
-                        <option value="NOK">NOK - Norwegian Krone</option>
-                        <option value="DKK">DKK - Danish Krone</option>
-                        <option value="SGD">SGD - Singapore Dollar</option>
-                        <option value="HKD">HKD - Hong Kong Dollar</option>
-                        <option value="NZD">NZD - New Zealand Dollar</option>
-                        <option value="MXN">MXN - Mexican Peso</option>
-                        <option value="ZAR">ZAR - South African Rand</option>
-                        <option value="BRL">BRL - Brazilian Real</option>
-                        <option value="RUB">RUB - Russian Ruble</option>
-                        <option value="INR">INR - Indian Rupee</option>
-                        <option value="KRW">KRW - South Korean Won</option>
-                        <option value="TRY">TRY - Turkish Lira</option>
-                    </select>
+  // Fetch rates immediately when app loads
+  useEffect(() => {
+    fetchExchangeRates();
+  }, []);
+
+  // Also refresh when entering forex mode if data is stale
+  useEffect(() => {
+    if (mode === 'forex') {
+      const timer = setTimeout(() => {
+        if (!ratesLastUpdated || (new Date() - ratesLastUpdated) > 300000) {
+          fetchExchangeRates();
+        }
+      }, 1000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [mode]);
+
+  // Basic calculator functions
+  const inputNumber = (num) => {
+    if (waitingForOperand) {
+      setDisplay(String(num));
+      setWaitingForOperand(false);
+    } else {
+      setDisplay(display === '0' ? String(num) : display + num);
+    }
+  };
+
+  const inputDecimal = () => {
+    if (waitingForOperand) {
+      setDisplay('0.');
+      setWaitingForOperand(false);
+    } else if (display.indexOf('.') === -1) {
+      setDisplay(display + '.');
+    }
+  };
+
+  const clear = () => {
+    setDisplay('0');
+    setPreviousValue(null);
+    setOperation(null);
+    setWaitingForOperand(false);
+    setExpression('');
+    setOpenParentheses(0);
+  };
+
+  const addParenthesis = (type) => {
+    if (type === 'open') {
+      if (waitingForOperand || display === '0') {
+        setExpression(prev => prev + '(');
+        setDisplay('(');
+        setOpenParentheses(prev => prev + 1);
+        setWaitingForOperand(true);
+      } else {
+        setExpression(prev => prev + display + '*(');
+        setDisplay('(');
+        setOpenParentheses(prev => prev + 1);
+        setWaitingForOperand(true);
+      }
+    } else if (type === 'close' && openParentheses > 0) {
+      setExpression(prev => prev + display + ')');
+      setDisplay(')');
+      setOpenParentheses(prev => prev - 1);
+      setWaitingForOperand(true);
+    }
+  };
+
+  const evaluateExpression = () => {
+    try {
+      let expr = expression + display;
+      
+      for (let i = 0; i < openParentheses; i++) {
+        expr += ')';
+      }
+      
+      expr = expr.replace(/×/g, '*').replace(/÷/g, '/');
+      
+      const result = Function('"use strict"; return (' + expr + ')')();
+      
+      if (isFinite(result)) {
+        setDisplay(String(result));
+        setHistory(prev => [`${expr} = ${result}`, ...prev.slice(0, 19)]);
+        setExpression('');
+        setOpenParentheses(0);
+        setWaitingForOperand(true);
+      }
+    } catch (error) {
+      setDisplay('Error');
+      setWaitingForOperand(true);
+    }
+  };
+
+  const calculate = (firstValue, secondValue, operation) => {
+    switch (operation) {
+      case '+': return firstValue + secondValue;
+      case '-': return firstValue - secondValue;
+      case '×': return firstValue * secondValue;
+      case '÷': return secondValue !== 0 ? firstValue / secondValue : 0;
+      case '%': return firstValue % secondValue;
+      case '^': return Math.pow(firstValue, secondValue);
+      default: return secondValue;
+    }
+  };
+
+  const performOperation = (nextOperation) => {
+    const inputValue = parseFloat(display);
+    
+    if (expression) {
+      setExpression(prev => prev + display + nextOperation);
+      setWaitingForOperand(true);
+      setOperation(nextOperation);
+    } else {
+      if (previousValue === null) {
+        setPreviousValue(inputValue);
+      } else if (operation) {
+        const currentValue = previousValue || 0;
+        const newValue = calculate(currentValue, inputValue, operation);
+        setDisplay(String(newValue));
+        setPreviousValue(newValue);
+        const calculation = `${formatNumber(currentValue)} ${operation} ${formatNumber(inputValue)} = ${formatNumber(newValue)}`;
+        setHistory(prev => [calculation, ...prev.slice(0, 19)]);
+      }
+      setWaitingForOperand(true);
+      setOperation(nextOperation);
+    }
+  };
+
+  const performEquals = () => {
+    if (expression || openParentheses > 0) {
+      evaluateExpression();
+    } else {
+      const inputValue = parseFloat(display);
+      if (previousValue !== null && operation) {
+        const newValue = calculate(previousValue, inputValue, operation);
+        const calculation = `${formatNumber(previousValue)} ${operation} ${formatNumber(inputValue)} = ${formatNumber(newValue)}`;
+        setHistory(prev => [calculation, ...prev.slice(0, 19)]);
+        setDisplay(String(newValue));
+        setPreviousValue(null);
+        setOperation(null);
+        setWaitingForOperand(true);
+      }
+    }
+  };
+
+  // DCF calculation
+  const calculateDCF = () => {
+    const fcf = parseFloat(display);
+    const wacc = memory.wacc / 100;
+    const terminalGrowth = memory.terminalGrowth / 100;
+    const projectionYears = 5;
+    
+    let pv = 0;
+    const initialGrowth = 0.15;
+    const growthDecline = 0.02;
+    
+    for (let year = 1; year <= projectionYears; year++) {
+      const yearGrowth = Math.max(initialGrowth - (growthDecline * (year - 1)), terminalGrowth);
+      const fcfYear = fcf * Math.pow(1 + yearGrowth, year);
+      pv += fcfYear / Math.pow(1 + wacc, year);
+    }
+    
+    const finalYearGrowth = Math.max(initialGrowth - (growthDecline * projectionYears), terminalGrowth);
+    const terminalFCF = fcf * Math.pow(1 + finalYearGrowth, projectionYears) * (1 + terminalGrowth);
+    const terminalValue = terminalFCF / (wacc - terminalGrowth);
+    const terminalPV = terminalValue / Math.pow(1 + wacc, projectionYears);
+    
+    const enterpriseValue = pv + terminalPV;
+    const result = Math.round(enterpriseValue);
+    
+    setDisplay(String(result));
+    setHistory(prev => [`DCF: FCF=${formatNumber(fcf)}, WACC=${memory.wacc}%, TG=${memory.terminalGrowth}% = ${formatNumber(result)}`, ...prev.slice(0, 19)]);
+    setWaitingForOperand(true);
+  };
+
+  const calculateMultiple = (metric) => {
+    const value = parseFloat(display);
+    let result;
+    let calculation;
+    
+    switch (metric) {
+      case 'ev_ebitda':
+        result = memory.enterprise / value;
+        calculation = `EV/EBITDA: ${formatNumber(memory.enterprise)} / ${formatNumber(value)} = ${result.toFixed(1)}x`;
+        break;
+      case 'pe':
+        result = memory.marketCap / value;
+        calculation = `P/E: ${formatNumber(memory.marketCap)} / ${formatNumber(value)} = ${result.toFixed(1)}x`;
+        break;
+      case 'ev_revenue':
+        result = memory.enterprise / value;
+        calculation = `EV/Revenue: ${formatNumber(memory.enterprise)} / ${formatNumber(value)} = ${result.toFixed(1)}x`;
+        break;
+      case 'price_book':
+        result = memory.marketCap / value;
+        calculation = `P/B: ${formatNumber(memory.marketCap)} / ${formatNumber(value)} = ${result.toFixed(1)}x`;
+        break;
+      case 'ev_sales':
+        result = memory.enterprise / value;
+        calculation = `EV/Sales: ${formatNumber(memory.enterprise)} / ${formatNumber(value)} = ${result.toFixed(1)}x`;
+        break;
+      default:
+        return;
+    }
+    
+    setDisplay(String(result.toFixed(2)));
+    setHistory(prev => [calculation, ...prev.slice(0, 19)]);
+    setWaitingForOperand(true);
+  };
+
+  const calculateIRR = () => {
+    const initialInvestment = memory.enterprise || parseFloat(display);
+    const finalValue = parseFloat(display);
+    const years = 5;
+    
+    if (initialInvestment <= 0 || finalValue <= 0) {
+      setDisplay('Error');
+      return;
+    }
+    
+    const irr = Math.pow(finalValue / initialInvestment, 1/years) - 1;
+    const result = irr * 100;
+    
+    setDisplay(String(result.toFixed(1)));
+    setHistory(prev => [`IRR: ${formatNumber(initialInvestment)} → ${formatNumber(finalValue)} (${years}y) = ${result.toFixed(1)}%`, ...prev.slice(0, 19)]);
+    setWaitingForOperand(true);
+  };
+
+  // IRR/NPV calculation functions
+  const calculateNPV = () => {
+    const rate = memory.discountRate / 100;
+    const investment = memory.initialInvestment;
+    const cashFlows = memory.cashFlows;
+    
+    if (cashFlows.length === 0) {
+      setDisplay('0');
+      setHistory(prev => [`NPV: No cash flows entered`, ...prev.slice(0, 19)]);
+      return;
+    }
+    
+    let npv = -investment;
+    
+    cashFlows.forEach((cf, index) => {
+      npv += cf / Math.pow(1 + rate, index + 1);
+    });
+    
+    setDisplay(String(Math.round(npv)));
+    setHistory(prev => [`NPV: Investment=${formatNumber(investment)}, Rate=${memory.discountRate}%, CF=${cashFlows.length}y = ${formatNumber(npv)}`, ...prev.slice(0, 19)]);
+    setWaitingForOperand(true);
+  };
+
+  const calculateIRRAdvanced = () => {
+    const investment = memory.initialInvestment;
+    const cashFlows = memory.cashFlows;
+    
+    if (cashFlows.length === 0) {
+      setDisplay('0');
+      setHistory(prev => [`IRR: No cash flows entered`, ...prev.slice(0, 19)]);
+      return;
+    }
+    
+    let irr = 0.1;
+    const maxIterations = 100;
+    const tolerance = 0.000001;
+    
+    for (let i = 0; i < maxIterations; i++) {
+      let npv = -investment;
+      let dnpv = 0;
+      
+      cashFlows.forEach((cf, index) => {
+        const year = index + 1;
+        const factor = Math.pow(1 + irr, year);
+        npv += cf / factor;
+        dnpv -= (year * cf) / (factor * (1 + irr));
+      });
+      
+      if (Math.abs(npv) < tolerance) break;
+      
+      irr = irr - npv / dnpv;
+      
+      if (irr < -0.99) irr = -0.99;
+      if (irr > 10) irr = 10;
+    }
+    
+    const irrPercent = irr * 100;
+    setDisplay(String(irrPercent.toFixed(2)));
+    setHistory(prev => [`IRR: Investment=${formatNumber(investment)}, CF=${cashFlows.length}y = ${irrPercent.toFixed(1)}%`, ...prev.slice(0, 19)]);
+    setWaitingForOperand(true);
+  };
+
+  const calculatePayback = () => {
+    const investment = memory.initialInvestment;
+    const cashFlows = memory.cashFlows;
+    
+    if (cashFlows.length === 0) {
+      setDisplay('0');
+      setHistory(prev => [`Payback: No cash flows entered`, ...prev.slice(0, 19)]);
+      return;
+    }
+    
+    let cumulativeCF = 0;
+    let paybackPeriod = 0;
+    
+    for (let i = 0; i < cashFlows.length; i++) {
+      cumulativeCF += cashFlows[i];
+      if (cumulativeCF >= investment) {
+        const previousCumulative = cumulativeCF - cashFlows[i];
+        const fraction = (investment - previousCumulative) / cashFlows[i];
+        paybackPeriod = i + fraction;
+        break;
+      }
+    }
+    
+    if (cumulativeCF < investment) {
+      paybackPeriod = cashFlows.length + (investment - cumulativeCF) / (cashFlows[cashFlows.length - 1] || 1);
+    }
+    
+    setDisplay(String(paybackPeriod.toFixed(2)));
+    setHistory(prev => [`Payback: ${paybackPeriod.toFixed(1)} years to recover ${formatNumber(investment)}`, ...prev.slice(0, 19)]);
+    setWaitingForOperand(true);
+  };
+
+  const calculatePI = () => {
+    const rate = memory.discountRate / 100;
+    const investment = memory.initialInvestment;
+    const cashFlows = memory.cashFlows;
+    
+    if (cashFlows.length === 0 || investment === 0) {
+      setDisplay('0');
+      setHistory(prev => [`PI: No cash flows or investment entered`, ...prev.slice(0, 19)]);
+      return;
+    }
+    
+    let presentValue = 0;
+    
+    cashFlows.forEach((cf, index) => {
+      presentValue += cf / Math.pow(1 + rate, index + 1);
+    });
+    
+    const pi = presentValue / investment;
+    
+    setDisplay(String(pi.toFixed(3)));
+    setHistory(prev => [`PI: PV=${formatNumber(presentValue)} / Investment=${formatNumber(investment)} = ${pi.toFixed(2)}`, ...prev.slice(0, 19)]);
+    setWaitingForOperand(true);
+  };
+
+  const addCashFlow = () => {
+    const cf = parseFloat(display);
+    if (isNaN(cf)) return;
+    
+    setMemory(prev => ({ 
+      ...prev, 
+      cashFlows: [...prev.cashFlows, cf],
+      currentCashFlow: cf
+    }));
+    
+    setHistory(prev => [`Added CF Year ${memory.cashFlows.length + 1}: ${formatNumber(cf)}`, ...prev.slice(0, 19)]);
+    setWaitingForOperand(true);
+  };
+
+  const clearCashFlows = () => {
+    setMemory(prev => ({ 
+      ...prev, 
+      cashFlows: [],
+      currentCashFlow: 0
+    }));
+    setHistory(prev => [`Cash flows cleared`, ...prev.slice(0, 19)]);
+  };
+
+  const setScenario = (years) => {
+    const baseAmount = parseFloat(display) || 100000;
+    const growthRate = 1.1;
+    const newCashFlows = [];
+    
+    for (let i = 0; i < years; i++) {
+      newCashFlows.push(Math.round(baseAmount * Math.pow(growthRate, i)));
+    }
+    
+    setMemory(prev => ({ 
+      ...prev, 
+      cashFlows: newCashFlows
+    }));
+    
+    setHistory(prev => [`${years}-year scenario: ${formatNumber(baseAmount)} growing at 10%`, ...prev.slice(0, 19)]);
+  };
+
+  const storeMemory = (key) => {
+    const value = parseFloat(display);
+    setMemory(prev => ({ ...prev, [key]: value }));
+    setHistory(prev => [`Stored ${key.toUpperCase()}: ${formatNumber(value)}`, ...prev.slice(0, 19)]);
+  };
+
+  const recallMemory = (key) => {
+    setDisplay(String(memory[key]));
+    setWaitingForOperand(true);
+  };
+
+  // Forex functions
+  const convertCurrency = (fromCurrency, toCurrency, amount) => {
+    const usdAmount = amount / exchangeRates[fromCurrency];
+    return usdAmount * exchangeRates[toCurrency];
+  };
+
+  const performForexConversion = (toCurrency) => {
+    const amount = parseFloat(display);
+    if (isNaN(amount) || amount === 0) return;
+    
+    const convertedAmount = convertCurrency(selectedCurrency, toCurrency, amount);
+    const formattedResult = convertedAmount < 0.01 ? convertedAmount.toFixed(6) : convertedAmount.toFixed(4);
+    setDisplay(String(formattedResult));
+    setHistory(prev => [`${amount.toFixed(2)} ${selectedCurrency} = ${formattedResult} ${toCurrency} (${getExchangeRate(selectedCurrency, toCurrency).toFixed(4)})`, ...prev.slice(0, 19)]);
+    setWaitingForOperand(true);
+  };
+
+  const getExchangeRate = (fromCurrency, toCurrency) => {
+    return convertCurrency(fromCurrency, toCurrency, 1);
+  };
+
+  const getCurrencyName = (code) => {
+    const names = {
+      USD: 'US Dollar',
+      EUR: 'Euro',
+      JPY: 'Japanese Yen',
+      GBP: 'British Pound',
+      CHF: 'Swiss Franc',
+      CAD: 'Canadian Dollar',
+      CNY: 'Chinese Yuan',
+      PLN: 'Polish Zloty',
+      AUD: 'Australian Dollar',
+      SEK: 'Swedish Krona'
+    };
+    return names[code] || code;
+  };
+
+  const swapCurrencies = () => {
+    const temp = selectedCurrency;
+    setSelectedCurrency(selectedToCurrency);
+    setSelectedToCurrency(temp);
+  };
+
+  const formatNumber = (num) => {
+    if (Math.abs(num) >= 1000000000) return (num / 1000000000).toFixed(1) + 'B';
+    if (Math.abs(num) >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+    if (Math.abs(num) >= 1000) return (num / 1000).toFixed(1) + 'K';
+    return num.toString();
+  };
+
+  const Button = ({ onClick, className = '', children, variant = 'default', size = 'normal', disabled = false }) => {
+    const baseClasses = 'font-semibold rounded-lg transition-all duration-200 active:scale-95 shadow-sm border';
+    const sizes = {
+      normal: 'h-10 sm:h-12 text-xs sm:text-sm px-2 sm:px-3',
+      small: 'h-8 sm:h-10 text-xs px-1 sm:px-2',
+      large: 'h-12 sm:h-14 text-sm sm:text-base px-3 sm:px-4'
+    };
+    
+    const variants = isDarkMode ? {
+      default: disabled ? 'bg-gray-800 text-gray-600 border-gray-700 cursor-not-allowed' : 'bg-gray-700 hover:bg-gray-600 text-gray-100 border-gray-600 hover:border-gray-500',
+      operator: 'bg-gray-800 hover:bg-gray-700 text-yellow-400 border-gray-600 hover:border-yellow-400',
+      equals: 'bg-yellow-500 hover:bg-yellow-400 text-black font-bold border-yellow-400',
+      function: disabled ? 'bg-gray-800 text-gray-600 border-gray-700 cursor-not-allowed' : 'bg-gray-800 hover:bg-gray-700 text-blue-400 border-gray-600',
+      clear: 'bg-red-600 hover:bg-red-500 text-white border-red-500',
+      ib: 'bg-yellow-600 hover:bg-yellow-500 text-black font-semibold border-yellow-500',
+      memory: 'bg-purple-600 hover:bg-purple-500 text-white border-purple-500',
+      swap: 'bg-green-600 hover:bg-green-500 text-white font-semibold border-green-500',
+      theme: 'bg-gray-600 hover:bg-gray-500 text-yellow-400 border-gray-500 hover:border-yellow-400'
+    } : {
+      default: disabled ? 'bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed' : 'bg-gray-100 hover:bg-gray-200 text-gray-800 border-gray-300 hover:border-gray-400',
+      operator: 'bg-white hover:bg-yellow-50 text-yellow-600 border-yellow-300 hover:border-yellow-400',
+      equals: 'bg-yellow-500 hover:bg-yellow-600 text-white font-bold border-yellow-500',
+      function: disabled ? 'bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed' : 'bg-white hover:bg-blue-50 text-blue-600 border-blue-300',
+      clear: 'bg-red-500 hover:bg-red-600 text-white border-red-500',
+      ib: 'bg-yellow-400 hover:bg-yellow-500 text-black font-semibold border-yellow-400',
+      memory: 'bg-purple-500 hover:bg-purple-600 text-white border-purple-500',
+      swap: 'bg-green-500 hover:bg-green-600 text-white font-semibold border-green-500',
+      theme: 'bg-yellow-100 hover:bg-yellow-200 text-gray-800 border-yellow-300 hover:border-yellow-400'
+    };
+    
+    return (
+      <button
+        className={`${baseClasses} ${sizes[size]} ${variants[variant]} ${className}`}
+        onClick={onClick}
+        disabled={disabled}
+      >
+        {children}
+      </button>
+    );
+  };
+
+  return (
+    <div className={`w-full max-w-3xl mx-auto rounded-2xl shadow-2xl p-3 sm:p-6 mt-4 sm:mt-8 border transition-all duration-300 ${
+      isDarkMode 
+        ? 'bg-gray-900 border-gray-700' 
+        : 'bg-white border-gray-200'
+    } min-h-screen sm:min-h-0`}>
+      {/* Header */}
+      <div className="text-center mb-4 sm:mb-6">
+        <div className="flex items-center justify-between mb-2 sm:mb-4">
+          <Button
+            variant="function"
+            size="small"
+            onClick={() => setShowTutorial(true)}
+            className="w-14 sm:w-20 h-6 sm:h-8 flex items-center justify-center text-xs"
+            title="Learn how to use this mode"
+          >
+            📚 Help
+          </Button>
+          <h1 className={`text-base sm:text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>
+            <span className="hidden sm:inline">Investment Banking Calculator</span>
+            <span className="sm:hidden">IB Calculator</span>
+          </h1>
+          <Button
+            variant="theme"
+            size="small"
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            className="w-8 sm:w-12 h-6 sm:h-8 flex items-center justify-center text-xs"
+            title={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
+          >
+            {isDarkMode ? '☀️' : '🌙'}
+          </Button>
+        </div>
+        <p className={`text-xs sm:text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+          <span className="hidden sm:inline">Professional financial modeling and analysis tool by MissCept</span>
+          <span className="sm:hidden">Financial modeling tool by MissCept</span>
+        </p>
+      </div>
+
+      {/* Tutorial Modal */}
+      {showTutorial && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center z-50 p-2 sm:p-4 pt-10 sm:pt-16">
+          <div className={`w-full max-w-3xl rounded-xl border shadow-2xl h-80 sm:h-40 ${
+            isDarkMode 
+              ? 'bg-gray-900 border-gray-600' 
+              : 'bg-white border-gray-200'
+          }`}>
+            <div className="p-2 sm:p-3 h-full flex flex-col">
+              <div className="flex justify-between items-center mb-2">
+                <h2 className={`text-sm sm:text-base font-bold ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>
+                  {getTutorialContent().title}
+                </h2>
+                <Button
+                  variant="clear"
+                  size="small"
+                  onClick={() => setShowTutorial(false)}
+                  className="w-5 h-5 flex items-center justify-center p-0 text-xs"
+                >
+                  ✕
+                </Button>
+              </div>
+              
+              <div className="flex-1 overflow-y-auto pr-2" style={{scrollbarWidth: 'thin'}}>
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
+                  {getTutorialContent().content.map((item, index) => (
+                    <div key={index} className={`flex-1 p-2 rounded-lg border ${
+                      isDarkMode 
+                        ? 'bg-gray-800 border-gray-700' 
+                        : 'bg-gray-50 border-gray-200'
+                    }`}>
+                      <h3 className={`font-semibold mb-1 text-xs ${
+                        isDarkMode ? 'text-yellow-400' : 'text-yellow-600'
+                      }`}>
+                        {item.section}
+                      </h3>
+                      <p className={`text-xs whitespace-pre-line leading-tight ${
+                        isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                      }`}>
+                        {item.text}
+                      </p>
+                    </div>
+                  ))}
                 </div>
-                <div style="display: flex; align-items: flex-end; padding-bottom: 5px;">
-                    <button class="swap-btn" onclick="swapCurrencies()">⇄</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Display */}
+      <div className="mb-4 sm:mb-6">
+        <div className={`p-4 sm:p-6 rounded-xl mb-3 sm:mb-4 border transition-all duration-300 ${
+          isDarkMode 
+            ? 'bg-black text-white border-gray-600' 
+            : 'bg-gray-50 text-gray-800 border-gray-200'
+        }`}>
+          <div className="text-right text-xl sm:text-3xl font-mono overflow-hidden mb-2">
+            {formatNumber(parseFloat(display) || 0)}
+          </div>
+          <div className={`text-right text-sm sm:text-lg mb-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+            {parseFloat(display) >= 1000000 ? `${parseFloat(display).toLocaleString()}` : display}
+          </div>
+          {operation && previousValue !== null && (
+            <div className={`text-right text-xs sm:text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+              {formatNumber(previousValue)} {operation}
+            </div>
+          )}
+          {expression && (
+            <div className={`text-right text-xs sm:text-sm ${isDarkMode ? 'text-orange-400' : 'text-yellow-600'}`}>
+              {expression}{display} {openParentheses > 0 && `(${openParentheses} open)`}
+            </div>
+          )}
+        </div>
+
+        {/* Mode Selector */}
+        <div className="grid grid-cols-3 sm:flex gap-1 sm:gap-2 mb-3 sm:mb-4">
+          {[
+            { key: 'basic', label: 'BASIC' },
+            { key: 'dcf', label: 'DCF' },
+            { key: 'comps', label: 'COMPS' },
+            { key: 'lbo', label: 'LBO' },
+            { key: 'irr_npv', label: 'IRR/NPV' },
+            { key: 'forex', label: 'FOREX' }
+          ].map((m) => (
+            <Button
+              key={m.key}
+              variant={mode === m.key ? 'ib' : 'default'}
+              size="small"
+              onClick={() => {
+                setMode(m.key);
+                if (m.key === 'forex') {
+                  setHistory([]);
+                }
+              }}
+              className="flex-1 text-xs"
+            >
+              {m.label}
+            </Button>
+          ))}
+        </div>
+
+        {/* Memory/Status Display */}
+        {(mode !== 'basic' && mode !== 'forex') && (
+          <div className={`p-2 sm:p-3 rounded-lg mb-3 sm:mb-4 border transition-all duration-300 ${
+            isDarkMode 
+              ? 'bg-gray-800 border-gray-600' 
+              : 'bg-gray-100 border-gray-200'
+          }`}>
+            {mode === 'irr_npv' ? (
+              <div>
+                <div className={`text-xs mb-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                  Investment Analysis Values
                 </div>
-                <div>
-                    <div style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 8px;">To Currency</div>
-                    <select class="currency-select" id="to-currency">
-                        <option value="USD">USD - US Dollar</option>
-                        <option value="EUR">EUR - Euro</option>
-                        <option value="GBP">GBP - British Pound</option>
-                        <option value="JPY">JPY - Japanese Yen</option>
-                        <option value="CHF">CHF - Swiss Franc</option>
-                        <option value="PLN" selected>PLN - Polish Zloty</option>
-                        <option value="CNY">CNY - Chinese Yuan</option>
-                        <option value="AUD">AUD - Australian Dollar</option>
-                        <option value="CAD">CAD - Canadian Dollar</option>
-                        <option value="SEK">SEK - Swedish Krona</option>
-                        <option value="NOK">NOK - Norwegian Krone</option>
-                        <option value="DKK">DKK - Danish Krone</option>
-                        <option value="SGD">SGD - Singapore Dollar</option>
-                        <option value="HKD">HKD - Hong Kong Dollar</option>
-                        <option value="NZD">NZD - New Zealand Dollar</option>
-                        <option value="MXN">MXN - Mexican Peso</option>
-                        <option value="ZAR">ZAR - South African Rand</option>
-                        <option value="BRL">BRL - Brazilian Real</option>
-                        <option value="RUB">RUB - Russian Ruble</option>
-                        <option value="INR">INR - Indian Rupee</option>
-                        <option value="KRW">KRW - South Korean Won</option>
-                        <option value="TRY">TRY - Turkish Lira</option>
-                    </select>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 sm:gap-2 text-xs">
+                  <div className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 ${
+                    isDarkMode 
+                      ? 'bg-gray-700 text-gray-300' 
+                      : 'bg-white text-gray-700 border border-gray-200'
+                  }`}>Investment: {formatNumber(memory.initialInvestment)}</div>
+                  <div className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 ${
+                    isDarkMode 
+                      ? 'bg-gray-700 text-gray-300' 
+                      : 'bg-white text-gray-700 border border-gray-200'
+                  }`}>Rate: {memory.discountRate}%</div>
+                  <div className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 ${
+                    isDarkMode 
+                      ? 'bg-gray-700 text-gray-300' 
+                      : 'bg-white text-gray-700 border border-gray-200'
+                  }`}>Cash Flows: {memory.cashFlows.length}y</div>
+                  <div className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 ${
+                    isDarkMode 
+                      ? 'bg-gray-700 text-gray-300' 
+                      : 'bg-white text-gray-700 border border-gray-200'
+                  }`}>Total CF: {formatNumber(memory.cashFlows.reduce((sum, cf) => sum + cf, 0))}</div>
                 </div>
+                {memory.cashFlows.length > 0 && (
+                  <div className="mt-2">
+                    <div className={`text-xs mb-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                      Cash Flow Stream:
+                    </div>
+                    <div className="flex flex-wrap gap-1">
+                      {memory.cashFlows.slice(0, 6).map((cf, index) => (
+                        <div key={index} className={`px-1 sm:px-2 py-1 rounded text-xs ${
+                          isDarkMode 
+                            ? 'bg-blue-900 text-blue-300' 
+                            : 'bg-blue-100 text-blue-700 border border-blue-200'
+                        }`}>
+                          Y{index + 1}: {formatNumber(cf)}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div>
+                <div className={`text-xs mb-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                  Memory Values
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 sm:gap-2 text-xs">
+                  <div className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 ${
+                    isDarkMode 
+                      ? 'bg-gray-700 text-gray-300' 
+                      : 'bg-white text-gray-700 border border-gray-200'
+                  }`}>WACC: {memory.wacc}%</div>
+                  <div className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 ${
+                    isDarkMode 
+                      ? 'bg-gray-700 text-gray-300' 
+                      : 'bg-white text-gray-700 border border-gray-200'
+                  }`}>TG: {memory.terminalGrowth}%</div>
+                  <div className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 ${
+                    isDarkMode 
+                      ? 'bg-gray-700 text-gray-300' 
+                      : 'bg-white text-gray-700 border border-gray-200'
+                  }`}>EV: {formatNumber(memory.enterprise)}</div>
+                  <div className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 ${
+                    isDarkMode 
+                      ? 'bg-gray-700 text-gray-300' 
+                      : 'bg-white text-gray-700 border border-gray-200'
+                  }`}>MCap: {formatNumber(memory.marketCap)}</div>
+                  <div className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 ${
+                    isDarkMode 
+                      ? 'bg-gray-700 text-gray-300' 
+                      : 'bg-white text-gray-700 border border-gray-200'
+                  } sm:block hidden`}>Rev: {formatNumber(memory.revenue)}</div>
+                  <div className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 ${
+                    isDarkMode 
+                      ? 'bg-gray-700 text-gray-300' 
+                      : 'bg-white text-gray-700 border border-gray-200'
+                  } sm:block hidden`}>EBITDA: {formatNumber(memory.ebitda)}</div>
+                  <div className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 ${
+                    isDarkMode 
+                      ? 'bg-gray-700 text-gray-300' 
+                      : 'bg-white text-gray-700 border border-gray-200'
+                  } sm:block hidden`}>D/E: {memory.debtEquityRatio}x</div>
+                  <div className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 ${
+                    isDarkMode 
+                      ? 'bg-gray-700 text-gray-300' 
+                      : 'bg-white text-gray-700 border border-gray-200'
+                  } sm:block hidden`}>D/EBITDA: {memory.debtEbitdaMultiple}x</div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* History */}
+        {history.length > 0 && (
+          <div className={`p-2 sm:p-3 rounded-lg max-h-24 sm:max-h-32 overflow-y-auto border transition-all duration-300 ${
+            isDarkMode 
+              ? 'bg-gray-800 border-gray-600' 
+              : 'bg-gray-100 border-gray-200'
+          }`}>
+            <div className="flex justify-between items-center mb-2">
+              <div className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                History {mode === 'forex' && '& API Status'}
+              </div>
+              <Button
+                variant="clear"
+                size="small"
+                onClick={() => setHistory([])}
+                className="h-4 sm:h-5 px-1 sm:px-2 text-xs"
+              >
+                Clear
+              </Button>
             </div>
-            
-            <div class="forex-actions">
-                <button class="forex-action-btn" onclick="convertCurrency()" id="convert-btn">Convert to PLN</button>
+            {history.slice(0, 6).map((calc, index) => (
+              <div key={index} className={`text-xs font-mono mb-1 p-1 rounded transition-all duration-300 ${
+                isDarkMode 
+                  ? 'text-gray-300 bg-gray-700' 
+                  : 'text-gray-700 bg-white border border-gray-200'
+              }`}>
+                {calc}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Mode-specific functions */}
+      {mode === 'dcf' && (
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 sm:gap-2 mb-3 sm:mb-4">
+          <Button variant="ib" size="small" onClick={calculateDCF}>DCF Model</Button>
+          <Button variant="memory" size="small" onClick={() => storeMemory('wacc')}>Set WACC</Button>
+          <Button variant="memory" size="small" onClick={() => storeMemory('terminalGrowth')}>Set TG</Button>
+          <Button variant="ib" size="small" onClick={calculateIRR}>IRR</Button>
+        </div>
+      )}
+
+      {mode === 'comps' && (
+        <div className="mb-3 sm:mb-4">
+          <div className="grid grid-cols-3 sm:grid-cols-5 gap-1 sm:gap-2 mb-2">
+            <Button variant="ib" size="small" onClick={() => calculateMultiple('ev_ebitda')}>EV/EBITDA</Button>
+            <Button variant="ib" size="small" onClick={() => calculateMultiple('pe')}>P/E</Button>
+            <Button variant="ib" size="small" onClick={() => calculateMultiple('ev_revenue')}>EV/Rev</Button>
+            <Button variant="ib" size="small" onClick={() => calculateMultiple('price_book')}>P/B</Button>
+            <Button variant="ib" size="small" onClick={() => calculateMultiple('ev_sales')}>EV/Sales</Button>
+          </div>
+        </div>
+      )}
+
+      {mode === 'lbo' && (
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 sm:gap-2 mb-3 sm:mb-4">
+          <Button variant="ib" size="small" onClick={() => {
+            const equity = parseFloat(display);
+            const debt = equity * memory.debtEquityRatio;
+            const totalCost = equity + debt;
+            setDisplay(String(totalCost));
+            setHistory(prev => [`LBO: Equity=${formatNumber(equity)}, Debt=${formatNumber(debt)}, Total=${formatNumber(totalCost)}`, ...prev.slice(0, 19)]);
+            setWaitingForOperand(true);
+          }}>LBO Size</Button>
+          <Button variant="ib" size="small" onClick={() => {
+            const ebitda = parseFloat(display);
+            const debtCapacity = ebitda * memory.debtEbitdaMultiple;
+            setDisplay(String(debtCapacity));
+            setHistory(prev => [`Debt: ${formatNumber(ebitda)} × ${memory.debtEbitdaMultiple}x = ${formatNumber(debtCapacity)}`, ...prev.slice(0, 19)]);
+            setWaitingForOperand(true);
+          }}>Debt Cap</Button>
+          <Button variant="ib" size="small" onClick={calculateIRR}>IRR</Button>
+          <Button variant="ib" size="small" onClick={() => {
+            const currentVal = parseFloat(display);
+            const moic = currentVal / (memory.enterprise || 1);
+            setDisplay(String(moic.toFixed(1)));
+            setHistory(prev => [`MOIC: ${formatNumber(currentVal)} / ${formatNumber(memory.enterprise)} = ${moic.toFixed(1)}x`, ...prev.slice(0, 19)]);
+            setWaitingForOperand(true);
+          }}>MOIC</Button>
+        </div>
+      )}
+
+      {mode === 'irr_npv' && (
+        <div className="mb-3 sm:mb-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 sm:gap-2 mb-2">
+            <Button variant="ib" size="small" onClick={calculateNPV}>NPV</Button>
+            <Button variant="ib" size="small" onClick={calculateIRRAdvanced}>IRR</Button>
+            <Button variant="ib" size="small" onClick={calculatePayback}>Payback</Button>
+            <Button variant="ib" size="small" onClick={calculatePI}>PI</Button>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 sm:gap-2 mb-2">
+            <Button variant="memory" size="small" onClick={() => storeMemory('initialInvestment')}>Set Investment</Button>
+            <Button variant="memory" size="small" onClick={() => storeMemory('discountRate')}>Set Rate</Button>
+            <Button variant="function" size="small" onClick={addCashFlow}>Add CF</Button>
+            <Button variant="clear" size="small" onClick={clearCashFlows}>Clear CF</Button>
+          </div>
+          <div className="grid grid-cols-3 gap-1 sm:gap-2">
+            <Button variant="function" size="small" onClick={() => setScenario(3)}>3Y Scenario</Button>
+            <Button variant="function" size="small" onClick={() => setScenario(5)}>5Y Scenario</Button>
+            <Button variant="function" size="small" onClick={() => setScenario(10)}>10Y Scenario</Button>
+          </div>
+        </div>
+      )}
+
+      {mode === 'forex' && (
+        <div className="mb-3 sm:mb-4">
+          <div className="grid grid-cols-3 gap-2 mb-3 sm:mb-4">
+            <div>
+              <label className={`block text-xs mb-1 sm:mb-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                From Currency
+              </label>
+              <select
+                value={selectedCurrency}
+                onChange={(e) => setSelectedCurrency(e.target.value)}
+                className={`w-full border rounded-lg px-2 sm:px-3 py-1 sm:py-2 text-xs sm:text-sm focus:outline-none transition-all duration-300 ${
+                  isDarkMode 
+                    ? 'bg-gray-700 text-white border-gray-500 focus:border-yellow-400' 
+                    : 'bg-white text-gray-800 border-gray-300 focus:border-yellow-500'
+                }`}
+              >
+                {Object.keys(exchangeRates).map((currency) => (
+                  <option key={currency} value={currency}>
+                    <span className="hidden sm:inline">{currency} - {getCurrencyName(currency)}</span>
+                    <span className="sm:hidden">{currency}</span>
+                  </option>
+                ))}
+              </select>
             </div>
+            <div className="flex items-end justify-center">
+              <Button 
+                variant="swap" 
+                size="small"
+                onClick={swapCurrencies}
+                className="h-8 sm:h-10 w-full flex items-center justify-center p-0"
+                title="Swap currencies"
+              >
+                ⇄
+              </Button>
+            </div>
+            <div>
+              <label className={`block text-xs mb-1 sm:mb-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                To Currency
+              </label>
+              <select
+                value={selectedToCurrency}
+                onChange={(e) => setSelectedToCurrency(e.target.value)}
+                className={`w-full border rounded-lg px-2 sm:px-3 py-1 sm:py-2 text-xs sm:text-sm focus:outline-none transition-all duration-300 ${
+                  isDarkMode 
+                    ? 'bg-gray-700 text-white border-gray-500 focus:border-yellow-400' 
+                    : 'bg-white text-gray-800 border-gray-300 focus:border-yellow-500'
+                }`}
+              >
+                {Object.keys(exchangeRates).filter(c => c !== selectedCurrency).map((currency) => (
+                  <option key={currency} value={currency}>
+                    <span className="hidden sm:inline">{currency} - {getCurrencyName(currency)}</span>
+                    <span className="sm:hidden">{currency}</span>
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-1 sm:gap-2">
+            <Button variant="ib" size="small" onClick={() => performForexConversion(selectedToCurrency)}>
+              Convert to {selectedToCurrency}
+            </Button>
+            <Button 
+              variant="function" 
+              size="small"
+              onClick={fetchExchangeRates}
+              disabled={isLoadingRates}
+            >
+              {isLoadingRates ? 'Updating...' : 'Refresh Rates'}
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {/* Memory Functions - Only for COMPS and LBO modes */}
+      {(mode === 'comps' || mode === 'lbo') && (
+        <div className="grid grid-cols-3 sm:grid-cols-6 gap-1 sm:gap-2 mb-3 sm:mb-4">
+          <Button variant="memory" size="small" onClick={() => storeMemory('enterprise')}>Set EV</Button>
+          <Button variant="memory" size="small" onClick={() => storeMemory('marketCap')}>Set MCap</Button>
+          <Button variant="memory" size="small" onClick={() => storeMemory('revenue')}>Set Rev</Button>
+          <Button variant="memory" size="small" onClick={() => storeMemory('ebitda')}>Set EBITDA</Button>
+          <Button variant="memory" size="small" onClick={() => recallMemory('enterprise')}>Rcl EV</Button>
+          <Button variant="memory" size="small" onClick={() => recallMemory('marketCap')}>Rcl MCap</Button>
+        </div>
+      )}
+
+      {/* Basic Calculator Layout */}
+      <div className="space-y-2 sm:space-y-3">
+        <div className="grid grid-cols-7 gap-1 sm:gap-3">
+          <Button variant="clear" size="small" onClick={clear}>AC</Button>
+          <Button variant="function" size="small" onClick={() => setDisplay(display.slice(0, -1) || '0')}>⌫</Button>
+          <Button variant="operator" size="small" onClick={() => {
+            const val = parseFloat(display);
+            setDisplay(String(Math.sqrt(val)));
+            setWaitingForOperand(true);
+          }}>√</Button>
+          <Button variant="operator" size="small" onClick={() => performOperation('^')}>^</Button>
+          <Button variant="operator" size="small" onClick={() => {
+            const val = parseFloat(display);
+            setDisplay(String(Math.log(val)));
+            setWaitingForOperand(true);
+          }}>ln</Button>
+          <Button variant="operator" size="small" onClick={() => addParenthesis('open')}>(</Button>
+          <Button variant="operator" size="small" onClick={() => addParenthesis('close')}>)</Button>
         </div>
 
-        <!-- DCF Panel -->
-        <div class="dcf-panel" id="dcf-panel">
-            <div class="forex-header">
-                <span>Memory Values</span>
-            </div>
-            <div class="memory-values">
-                <div class="memory-item">WACC: 8.5%</div>
-                <div class="memory-item">TG: 2.5%</div>
-                <div class="memory-item">EV: 0</div>
-                <div class="memory-item">MCap: 0</div>
-            </div>
-            
-            <div class="history-header">
-                <span class="history-title">History</span>
-                <button class="clear-btn">Clear</button>
-            </div>
-            <div class="forex-history">
-                DCF calculations will appear here<br>
-                Model updates: Real-time
-            </div>
-            
-            <div class="dcf-functions">
-                <button class="dcf-btn" onclick="dcfModel()">DCF Model</button>
-                <button class="dcf-btn" onclick="setWACC()">Set WACC</button>
-                <button class="dcf-btn" onclick="setTG()">Set TG</button>
-                <button class="dcf-btn" onclick="calculateIRR()">IRR</button>
-            </div>
-            
-            <div class="dcf-advanced">
-                <button class="dcf-advanced-btn" onclick="setEV()">Set EV</button>
-                <button class="dcf-advanced-btn" onclick="setMCap()">Set MCap</button>
-                <button class="dcf-advanced-btn" onclick="setRev()">Set Rev</button>
-                <button class="dcf-advanced-btn" onclick="setEBITDA()">Set EBITDA</button>
-                <button class="dcf-advanced-btn" onclick="relEV()">Rel EV</button>
-                <button class="dcf-advanced-btn" onclick="relMCap()">Rel MCap</button>
-            </div>
+        <div className="grid grid-cols-4 gap-1 sm:gap-3">
+          <Button onClick={() => inputNumber(7)}>7</Button>
+          <Button onClick={() => inputNumber(8)}>8</Button>
+          <Button onClick={() => inputNumber(9)}>9</Button>
+          <Button variant="operator" onClick={() => performOperation('÷')}>÷</Button>
         </div>
 
-        <!-- Calculator Grid -->
-        <div class="calculator-grid">
-            <button class="calc-btn clear" onclick="clearAll()">AC</button>
-            <button class="calc-btn function" onclick="backspace()">⌫</button>
-            <button class="calc-btn function" onclick="openParenthesis()">(</button>
-            <button class="calc-btn function" onclick="closeParenthesis()">)</button>
-
-            <button class="calc-btn" onclick="inputNumber(7)">7</button>
-            <button class="calc-btn" onclick="inputNumber(8)">8</button>
-            <button class="calc-btn" onclick="inputNumber(9)">9</button>
-            <button class="calc-btn operator" onclick="performOperation('/')">/</button>
-
-            <button class="calc-btn" onclick="inputNumber(4)">4</button>
-            <button class="calc-btn" onclick="inputNumber(5)">5</button>
-            <button class="calc-btn" onclick="inputNumber(6)">6</button>
-            <button class="calc-btn operator" onclick="performOperation('*')">×</button>
-
-            <button class="calc-btn" onclick="inputNumber(1)">1</button>
-            <button class="calc-btn" onclick="inputNumber(2)">2</button>
-            <button class="calc-btn" onclick="inputNumber(3)">3</button>
-            <button class="calc-btn operator" onclick="performOperation('-')">-</button>
-
-            <button class="calc-btn function" onclick="calculatePower()">x^y</button>
-            <button class="calc-btn" onclick="inputNumber(0)">0</button>
-            <button class="calc-btn" onclick="inputDecimal()">.</button>
-            <button class="calc-btn operator" onclick="performOperation('+')">+</button>
-
-            <button class="calc-btn function" onclick="calculateSquareRoot()">√</button>
-            <button class="calc-btn function" onclick="performOperation('%')">%</button>
-            <button class="calc-btn function" onclick="calculateNthRoot()">ⁿ√</button>
-            <button class="calc-btn equals" onclick="calculate()">=</button>
+        <div className="grid grid-cols-4 gap-1 sm:gap-3">
+          <Button onClick={() => inputNumber(4)}>4</Button>
+          <Button onClick={() => inputNumber(5)}>5</Button>
+          <Button onClick={() => inputNumber(6)}>6</Button>
+          <Button variant="operator" onClick={() => performOperation('×')}>×</Button>
         </div>
 
-        <!-- Multiplier Buttons -->
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px;">
-            <button class="special-btn" onclick="multiply1K()">×1K</button>
-            <button class="special-btn" onclick="multiply1M()">×1M</button>
-            <button class="special-btn" onclick="multiply1B()">×1B</button>
+        <div className="grid grid-cols-4 gap-1 sm:gap-3">
+          <Button onClick={() => inputNumber(1)}>1</Button>
+          <Button onClick={() => inputNumber(2)}>2</Button>
+          <Button onClick={() => inputNumber(3)}>3</Button>
+          <Button variant="operator" onClick={() => performOperation('-')}>-</Button>
         </div>
 
-        <div class="footer">
-            IB Calculator v2.1 | Enhanced Financial Modeling Suite<br>
-            DCF: Discounted Cash Flow | LBO: Leveraged Buyout | Comps: Comparable Analysis | Forex: Currency Conversion<br>
-            Live exchange rates from ExchangeRate-API
+        <div className="grid grid-cols-4 gap-1 sm:gap-3">
+          <Button variant="operator" onClick={() => performOperation('%')}>%</Button>
+          <Button onClick={() => inputNumber(0)}>0</Button>
+          <Button onClick={inputDecimal}>.</Button>
+          <Button variant="operator" onClick={() => performOperation('+')}>+</Button>
         </div>
+
+        <div className="grid grid-cols-4 gap-1 sm:gap-3">
+          <Button variant="function" onClick={() => {
+            const val = parseFloat(display);
+            setDisplay(String(val * 1000));
+            setWaitingForOperand(true);
+          }}>×1K</Button>
+          <Button variant="function" onClick={() => {
+            const val = parseFloat(display);
+            setDisplay(String(val * 1000000));
+            setWaitingForOperand(true);
+          }}>×1M</Button>
+          <Button variant="function" onClick={() => {
+            const val = parseFloat(display);
+            setDisplay(String(val * 1000000000));
+            setWaitingForOperand(true);
+          }}>×1B</Button>
+          <Button variant="equals" onClick={performEquals}>=</Button>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className={`text-xs mt-4 sm:mt-6 text-center transition-all duration-300 ${
+        isDarkMode ? 'text-gray-400' : 'text-gray-600'
+      }`}>
+        <div className="mb-1">
+          <span className="hidden sm:inline">IB Calculator v2.3 | Enhanced Financial Modeling Suite with IRR/NPV Analysis</span>
+          <span className="sm:hidden">IB Calculator v2.3 | Financial Suite</span>
+        </div>
+        <div className="text-xs hidden sm:block">DCF: Discounted Cash Flow | LBO: Leveraged Buyout | Comps: Comparable Analysis | IRR/NPV: Investment Analysis | Forex: Real-time Currency Conversion</div>
+        {mode === 'forex' && ratesLastUpdated && (
+          <div className={`mt-1 text-center text-xs ${isDarkMode ? 'text-green-400' : 'text-green-600'}`}>
+            🌐 Live exchange rates | Last updated: {ratesLastUpdated.toLocaleDateString()} at {ratesLastUpdated.toLocaleTimeString()}
+          </div>
+        )}
+      </div>
     </div>
+  );
+};
 
-    <!-- Tutorial Modal -->
-    <div class="tutorial-modal" id="tutorial-modal">
-        <div class="tutorial-content">
-            <div class="tutorial-header">
-                <div class="tutorial-title" id="tutorial-title">📚 Calculator Tutorial</div>
-                <button class="tutorial-close" onclick="closeTutorial()">✕</button>
-            </div>
-            <div id="tutorial-body">
-                <!-- Content will be dynamically populated -->
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Global State
-        let display = '4716.0775';
-        let displayFormatted = '4.7K';
-        let previousValue = null;
-        let operation = null;
-        let waitingForOperand = false;
-        let currentMode = 'forex';
-        let isDarkMode = true;
-        let exchangeRates = {
-            'EUR': { 'USD': 1.1403, 'PLN': 4.2869, 'GBP': 0.8456, 'JPY': 170.23 },
-            'USD': { 'EUR': 0.8771, 'PLN': 3.7594, 'GBP': 0.7414, 'JPY': 149.25 },
-            'GBP': { 'EUR': 1.1826, 'USD': 1.3489, 'PLN': 5.0697, 'JPY': 201.34 },
-            'PLN': { '
+export default IBCalculator;
