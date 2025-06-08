@@ -1,3 +1,5 @@
+edit
+  
 const CACHE_NAME = 'ib-calculator-v1';
 const urlsToCache = [
   './',
