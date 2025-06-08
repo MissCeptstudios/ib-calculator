@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Investment Banking Calculator</title>
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#f59e0b">
     <link rel="apple-touch-icon" href="icon-192.png">
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -620,12 +620,10 @@
                       </Button>
                     )}
                     {/* Debug info - remove in production */}
-                    {process.env.NODE_ENV === 'development' && (
-                      <div className="text-xs text-gray-500 mt-1">
-                        Debug: Install={showInstallButton ? 'Yes' : 'No'} | 
-                        Standalone={window.matchMedia('(display-mode: standalone)').matches ? 'Yes' : 'No'}
-                      </div>
-                    )}
+                    <div className="text-xs text-gray-500 mt-1">
+                      Debug: Install={showInstallButton ? 'Yes' : 'No'} | 
+                      Standalone={window.matchMedia('(display-mode: standalone)').matches ? 'Yes' : 'No'}
+                    </div>
                   </div>
                   
                   <Button
@@ -1088,8 +1086,9 @@
 
         ReactDOM.render(<IBCalculator />, document.getElementById('root'));
     </script>
+    
+    <!-- Service Worker Registration - Separate Script -->
     <script>
-        // Register Service Worker
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', function() {
             navigator.serviceWorker.register('./sw.js')
@@ -1100,8 +1099,6 @@
                 console.log('❌ Service Worker registration failed:', error);
               });
           });
-        } else {
-          console.log('❌ Service Worker not supported');
         }
     </script>
 </body>
