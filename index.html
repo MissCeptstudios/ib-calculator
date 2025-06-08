@@ -233,7 +233,11 @@
                 case '+': return firstValue + secondValue;
                 case '-': return firstValue - secondValue;
                 case '*': return firstValue * secondValue;
-                case '/': return secondValue !== 0 ? firstValue / secondValue : 0;
+                case '/':
+                    if (secondValue === 0) {
+                        return firstValue === 0 ? NaN : (firstValue > 0 ? Infinity : -Infinity);
+                    }
+                    return firstValue / secondValue;
                 case '%': return firstValue % secondValue;
                 default: return secondValue;
             }
