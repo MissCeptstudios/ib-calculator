@@ -1,268 +1,877 @@
-<!DOCTYPE html>
+'forex': {
+                    title: '🌍 Foreign Exchange (FOREX) Tutorial',
+                    content: `
+                        <div class="tutorial-section">
+                            <p>Professional currency conversion tool for international business transactions, cross-border investments, and multi-currency financial modeling. Features real-time exchange rates and comprehensive currency pair support for global investment banking operations.</p>
+                        </div>
+                        
+                        <div class="tutorial-section">
+                            <h3>🎯 What This Mode Does</h3>
+                            <div class="feature-grid">
+                                <div class="feature-card">
+                                    <h4>💱 Real-Time Conversion</h4>
+                                    <p>Convert between 22+ major global currencies instantly</p>
+                                </div>
+                                <div class="feature-card">
+                                    <h4>📊 Cross-Border Analysis</h4>
+                                    <p>Calculate international transaction costs and exposures</p>
+                                </div>
+                                <div class="feature-card">
+                                    <h4>🌐 Multi-Currency Modeling</h4>
+                                    <p>Support for global M&A and international investments</p>
+                                </div>
+                                <div class="feature-card">
+                                    <h4>📈 Rate History</h4>
+                                    <p>Track conversion history for reporting and analysis</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tutorial-section">
+                            <h3>📋 Step-by-Step Example: Convert €50M for US Acquisition</h3>
+                            <p>A European private equity fund wants to acquire a US company valued at $55M:</p>
+                            <div class="tutorial-steps">
+                                <ol>
+                                    <li><strong>Set Source Currency:</strong>
+                                        <br><small>• From: "EUR" (European fund has euros)</small>
+                                        <br><small>• This should already be selected</small></li>
+                                    
+                                    <li><strong>Set Target Currency:</strong>
+                                        <br><small>• To: Select "USD" from dropdown</small>
+                                        <br><small>• US acquisition requires US dollars</small></li>
+                                    
+                                    <li><strong>Enter Amount:</strong> Type 50, click "×1M"
+                                        <br><small>• Input: €50 million available for investment</small></li>
+                                    
+                                    <li><strong>Convert Currency:</strong> Click "Convert to USD"
+                                        <br><small>• Using current EUR/USD rate of ~1.14</small>
+                                        <br><small>• Result: €50M × 1.14 = $57M USD</small></li>
+                                    
+                                    <li><strong>Analysis:</strong>
+                                        <br><small>• €50M converts to $57M USD</small>
+                                        <br><small>• Target acquisition: $55M</small>
+                                        <br><small>• Available for fees/working capital: $2M</small></li>
+                                    
+                                    <li><strong>Risk Consideration:</strong>
+                                        <br><small>• Monitor EUR/USD rate volatility</small>
+                                        <br><small>• Consider currency hedging strategies</small></li>
+                                    
+                                    <li><strong>Save to History:</strong>
+                                        <br><small>• Conversion logged automatically</small>
+                                        <br><small>• Use "Clear" to reset history if needed</small></li>
+                                </ol>
+                            </div>
+                        </div>
+                        
+                        <div class="tutorial-formula">
+                            <code>Converted Amount = Original Amount × Exchange Rate</code>
+                            <code>Cross Rate = (Currency A/USD) × (USD/Currency B)</code>
+                            <code>Currency Exposure = Foreign Investment ÷ Total Portfolio</code>
+                            <code>Hedging Cost = Notional × Forward Premium/Discount</code>
+                        </div>
+                        
+                        <div class="tutorial-example">
+                            <h4>💰 European Fund USD Acquisition</h4>
+                            <p><strong>Available Capital:</strong> €50,000,000</p>
+                            <p><strong>Exchange Rate:</strong> 1 EUR = 1.14 USD</p>
+                            <p><strong>USD Equivalent:</strong> $57,000,000</p>
+                            <p><strong>Target Price:</strong> $55,000,000</p>
+                            <p><strong>Excess Capacity:</strong> $2,000,000 (3.6%)</p>
+                            <p><strong>Decision:</strong> ✅ Proceed with acquisition</p>
+                        </div>
+                        
+                        <div class="tutorial-example">
+                            <h4>🌍 Common FOREX Use Cases in Investment Banking</h4>
+                            <p><strong>Cross-Border M&A:</strong> Convert deal values between currencies</p>
+                            <p><strong>International IPOs:</strong> Price offerings in multiple markets</p>
+                            <p><strong>Global Fund Modeling:</strong> Consolidate multi-currency portfolios</p>
+                            <p><strong>FX Risk Analysis:</strong> Calculate currency exposure impacts</p>
+                            <p><strong>Arbitrage Opportunities:</strong> Identify price differences across markets</p>
+                        </div>
+                        
+                        <div class="tutorial-example">
+                            <h4>💡 Pro Tips for Currency Conversion</h4>
+                            <p><strong>Timing:</strong> Monitor central bank announcements and economic data</p>
+                            <p><strong>Hedging:</strong> Use forwards/options for large transactions</p>
+                            <p><strong>Spread:</strong> Account for bid-ask spreads in calculations</p>
+                            <p><strong>Volatility:</strong> Consider currency pair volatility in risk models</p>
+                        </div>
+                    `
+                }<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Investment Banking Calculator</title>
     <link rel="manifest" href="./manifest.json">
-    <meta name="theme-color" content="#f59e0b">
+    <meta name="theme-color" content="#1a202c">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #1f2937; color: white; padding: 20px; min-height: 100vh;
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: #0f172a;
+            color: white;
+            padding: 15px;
+            min-height: 100vh;
         }
-        .container {
-            max-width: 600px; margin: 0 auto; background: #374151;
-            border-radius: 20px; padding: 20px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        .container { 
+            max-width: 600px; 
+            margin: 0 auto; 
+            background: #1e293b; 
+            border-radius: 20px; 
+            padding: 20px; 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
         }
-        .header { text-align: center; margin-bottom: 30px; }
-        .header h1 { font-size: 2rem; margin-bottom: 10px; }
-        .header p { font-size: 0.9rem; color: #9ca3af; }
-        .install-btn {
-            background: #6b7280; color: #fbbf24; border: 2px solid #6b7280;
-            padding: 8px 16px; border-radius: 8px; font-weight: bold;
-            cursor: pointer; margin: 10px 0; animation: pulse 2s infinite;
+        .header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 20px; 
         }
-        .install-btn:hover { background: #4b5563; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
-        .debug-panel {
-            background: #4b5563; border: 1px solid #6b7280; border-radius: 8px;
-            padding: 15px; margin-bottom: 20px; font-size: 0.8rem;
+        .header h1 { 
+            font-size: 1.5rem; 
+            font-weight: bold; 
+            color: white; 
+            text-align: center; 
+            flex: 1; 
         }
-        .debug-panel h3 { margin-bottom: 10px; color: #fbbf24; }
-        .debug-panel div { margin: 3px 0; }
+        .header p { 
+            font-size: 0.8rem; 
+            color: #94a3b8; 
+            text-align: center; 
+        }
+        .help-btn, .theme-btn {
+            background: #475569;
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .help-btn {
+            background: #475569;
+        }
+        .help-btn:hover {
+            background: #64748b;
+        }
+        .theme-btn:hover {
+            background: #64748b;
+        }
         .display {
-            background: #111827; border: 2px solid #4b5563; border-radius: 12px;
-            padding: 20px; margin-bottom: 20px; text-align: right;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: right;
         }
-        .display-main { font-size: 2.5rem; font-family: monospace; margin-bottom: 10px; }
-        .display-sub { font-size: 1.2rem; color: #9ca3af; }
-        .calculator-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        .display-main { 
+            font-size: 2.2rem; 
+            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', monospace; 
+            margin-bottom: 5px; 
+            font-weight: 600;
+        }
+        .display-sub { 
+            font-size: 1rem; 
+            color: #94a3b8; 
+            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
+        }
+        .mode-selector {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .mode-btn {
+            background: #475569;
+            color: white;
+            border: none;
+            padding: 12px 8px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .mode-btn.active { 
+            background: #f59e0b; 
+            color: black;
+        }
+        .mode-btn:hover { 
+            background: #64748b; 
+        }
+        .mode-btn.active:hover {
+            background: #d97706;
+        }
+
+        /* FOREX Specific Styles */
+        .forex-panel {
+            background: #334155;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        .forex-panel.active { display: block; }
+        .forex-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+        .forex-rates {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+            font-size: 0.75rem;
+            font-family: monospace;
+        }
+        .rate-item {
+            background: #475569;
+            padding: 6px 8px;
+            border-radius: 6px;
+            color: #e2e8f0;
+        }
+        .forex-history {
+            background: #475569;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.8rem;
+            font-family: monospace;
+        }
+        .forex-conversion {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .currency-select {
+            background: #475569;
+            color: white;
+            border: 1px solid #64748b;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        .swap-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .forex-actions {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .forex-action-btn {
+            background: #1e40af;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .forex-action-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* DCF Specific Styles */
+        .dcf-panel {
+            background: #334155;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        .dcf-panel.active { display: block; }
+        .memory-values {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+            font-size: 0.75rem;
+            font-family: monospace;
+        }
+        .memory-item {
+            background: #475569;
+            padding: 8px;
+            border-radius: 6px;
+            color: #e2e8f0;
+            text-align: center;
+        }
+        .dcf-functions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .dcf-btn {
+            background: #f59e0b;
+            color: black;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .dcf-btn:hover {
+            background: #d97706;
+        }
+        .dcf-advanced {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin-bottom: 15px;
+        }
+        .dcf-advanced-btn {
+            background: #7c3aed;
+            color: white;
+            border: none;
+            padding: 10px 6px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .dcf-advanced-btn:hover {
+            background: #6d28d9;
+        }
+
+        /* History Panel */
+        .history-panel {
+            background: #334155;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        .history-panel.active { display: block; }
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .history-title {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            font-weight: bold;
+        }
+        .clear-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            cursor: pointer;
+        }
+
+        /* Calculator Grid */
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
         .calc-btn {
-            background: #4b5563; color: white; border: 1px solid #6b7280;
-            padding: 20px; border-radius: 8px; font-size: 1.1rem; font-weight: bold;
-            cursor: pointer; transition: all 0.2s; min-height: 60px;
+            background: #475569;
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-height: 55px;
         }
-        .calc-btn:hover { background: #374151; transform: scale(0.95); }
-        .calc-btn:active { transform: scale(0.9); }
-        .calc-btn.operator { background: #f59e0b; color: black; }
-        .calc-btn.equals { background: #10b981; color: white; }
-        .calc-btn.clear { background: #ef4444; color: white; }
-        .calc-btn.function { background: #3b82f6; color: white; }
-        .footer { text-align: center; margin-top: 30px; font-size: 0.8rem; color: #9ca3af; }
+        .calc-btn:hover { 
+            background: #64748b; 
+        }
+        .calc-btn:active { 
+            transform: scale(0.95); 
+        }
+        .calc-btn.operator { 
+            background: #f59e0b; 
+            color: black; 
+        }
+        .calc-btn.operator:hover {
+            background: #d97706;
+        }
+        .calc-btn.equals { 
+            background: #f59e0b; 
+            color: black; 
+        }
+        .calc-btn.equals:hover {
+            background: #d97706;
+        }
+        .calc-btn.clear { 
+            background: #ef4444; 
+            color: white; 
+        }
+        .calc-btn.clear:hover {
+            background: #dc2626;
+        }
+        .calc-btn.function { 
+            background: #64748b; 
+            color: white; 
+        }
+        .calc-btn.function:hover {
+            background: #475569;
+        }
+
+        /* Special Calculator Buttons */
+        .special-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .special-btn {
+            background: #1e40af;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .special-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* Footer */
+        .footer { 
+            text-align: center; 
+            margin-top: 20px; 
+            font-size: 0.7rem; 
+            color: #64748b; 
+            line-height: 1.4;
+        }
+
+        /* Tutorial Modal Styles */
+        .tutorial-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        .tutorial-modal.active {
+            display: flex;
+        }
+        .tutorial-content {
+            background: #1e293b;
+            border-radius: 20px;
+            padding: 25px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+            border: 1px solid #334155;
+            position: relative;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .tutorial-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #334155;
+        }
+        .tutorial-title {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #f59e0b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .tutorial-close {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .tutorial-close:hover {
+            background: #dc2626;
+            transform: scale(1.05);
+        }
+        
+        .tutorial-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #334155;
+            border-radius: 12px;
+            border-left: 4px solid #f59e0b;
+        }
+        .tutorial-section h3 {
+            color: #fbbf24;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tutorial-section p {
+            color: #e2e8f0;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+        
+        .tutorial-steps {
+            background: #475569;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 3px solid #10b981;
+        }
+        .tutorial-steps ol {
+            color: #e2e8f0;
+            padding-left: 20px;
+        }
+        .tutorial-steps li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        .tutorial-example {
+            background: #065f46;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+        .tutorial-example h4 {
+            color: #34d399;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tutorial-example p {
+            color: #d1fae5;
+            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .tutorial-formula {
+            background: #312e81;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #8b5cf6;
+        }
+        .tutorial-formula code {
+            color: #c4b5fd;
+            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .feature-card {
+            background: #475569;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #3b82f6;
+        }
+        .feature-card h4 {
+            color: #60a5fa;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        .feature-card p {
+            color: #e2e8f0;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        /* Scrollbar styling for tutorial content */
+        .tutorial-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .tutorial-content::-webkit-scrollbar-track {
+            background: #334155;
+            border-radius: 4px;
+        }
+        .tutorial-content::-webkit-scrollbar-thumb {
+            background: #f59e0b;
+            border-radius: 4px;
+        }
+        .tutorial-content::-webkit-scrollbar-thumb:hover {
+            background: #d97706;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Investment Banking Calculator</h1>
-            <button id="install-btn" class="install-btn" style="display:none;" onclick="installApp()">
-                📱 Install App
-            </button>
-            <p>Professional financial modeling and analysis tool by MissCept</p>
-        </div>
-
-        <div class="debug-panel">
-            <h3>🔧 PWA Debug Panel</h3>
-            <div>Protocol: <span id="debug-protocol"></span></div>
-            <div>SW Support: <span id="debug-sw"></span></div>
-            <div>Manifest: <span id="debug-manifest"></span></div>
-            <div>Install Button: <span id="debug-install">Hidden</span></div>
-            <div>Standalone: <span id="debug-standalone"></span></div>
+            <button class="help-btn" onclick="showTutorial()">📚</button>
+            <div style="text-align: center;">
+                <h1>Investment Banking Calculator</h1>
+                <p>Professional financial modeling and analysis tool by MissCept</p>
+            </div>
+            <button class="theme-btn" onclick="toggleTheme()" id="theme-toggle">🌙</button>
         </div>
 
         <div class="display">
-            <div class="display-main" id="display">0</div>
-            <div class="display-sub" id="display-formatted">0</div>
+            <div class="display-main" id="display">4.7K</div>
+            <div class="display-sub" id="display-formatted">4716.0775</div>
         </div>
 
+        <div class="mode-selector">
+            <button class="mode-btn" onclick="setMode('basic')" data-mode="basic">BASIC</button>
+            <button class="mode-btn" onclick="setMode('dcf')" data-mode="dcf">DCF</button>
+            <button class="mode-btn" onclick="setMode('comps')" data-mode="comps">COMPS</button>
+            <button class="mode-btn" onclick="setMode('lbo')" data-mode="lbo">LBO</button>
+            <button class="mode-btn active" onclick="setMode('forex')" data-mode="forex">FOREX</button>
+        </div>
+
+        <!-- FOREX Panel -->
+        <div class="forex-panel active" id="forex-panel">
+            <div class="history-header">
+                <span class="history-title">History</span>
+                <button class="clear-btn">Clear</button>
+            </div>
+            <div class="forex-history">
+                1100.00 EUR = 4716.0775 PLN<br>
+                Exchange rates updated: 23:16:07
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; margin-bottom: 15px;">
+                <div>
+                    <div style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 8px;">From Currency</div>
+                    <select class="currency-select" id="from-currency">
+                        <option value="USD">USD - US Dollar</option>
+                        <option value="EUR" selected>EUR - Euro</option>
+                        <option value="GBP">GBP - British Pound</option>
+                        <option value="JPY">JPY - Japanese Yen</option>
+                        <option value="CHF">CHF - Swiss Franc</option>
+                        <option value="PLN">PLN - Polish Zloty</option>
+                        <option value="CNY">CNY - Chinese Yuan</option>
+                        <option value="AUD">AUD - Australian Dollar</option>
+                        <option value="CAD">CAD - Canadian Dollar</option>
+                        <option value="SEK">SEK - Swedish Krona</option>
+                        <option value="NOK">NOK - Norwegian Krone</option>
+                        <option value="DKK">DKK - Danish Krone</option>
+                        <option value="SGD">SGD - Singapore Dollar</option>
+                        <option value="HKD">HKD - Hong Kong Dollar</option>
+                        <option value="NZD">NZD - New Zealand Dollar</option>
+                        <option value="MXN">MXN - Mexican Peso</option>
+                        <option value="ZAR">ZAR - South African Rand</option>
+                        <option value="BRL">BRL - Brazilian Real</option>
+                        <option value="RUB">RUB - Russian Ruble</option>
+                        <option value="INR">INR - Indian Rupee</option>
+                        <option value="KRW">KRW - South Korean Won</option>
+                        <option value="TRY">TRY - Turkish Lira</option>
+                    </select>
+                </div>
+                <div style="display: flex; align-items: flex-end; padding-bottom: 5px;">
+                    <button class="swap-btn" onclick="swapCurrencies()">⇄</button>
+                </div>
+                <div>
+                    <div style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 8px;">To Currency</div>
+                    <select class="currency-select" id="to-currency">
+                        <option value="USD">USD - US Dollar</option>
+                        <option value="EUR">EUR - Euro</option>
+                        <option value="GBP">GBP - British Pound</option>
+                        <option value="JPY">JPY - Japanese Yen</option>
+                        <option value="CHF">CHF - Swiss Franc</option>
+                        <option value="PLN" selected>PLN - Polish Zloty</option>
+                        <option value="CNY">CNY - Chinese Yuan</option>
+                        <option value="AUD">AUD - Australian Dollar</option>
+                        <option value="CAD">CAD - Canadian Dollar</option>
+                        <option value="SEK">SEK - Swedish Krona</option>
+                        <option value="NOK">NOK - Norwegian Krone</option>
+                        <option value="DKK">DKK - Danish Krone</option>
+                        <option value="SGD">SGD - Singapore Dollar</option>
+                        <option value="HKD">HKD - Hong Kong Dollar</option>
+                        <option value="NZD">NZD - New Zealand Dollar</option>
+                        <option value="MXN">MXN - Mexican Peso</option>
+                        <option value="ZAR">ZAR - South African Rand</option>
+                        <option value="BRL">BRL - Brazilian Real</option>
+                        <option value="RUB">RUB - Russian Ruble</option>
+                        <option value="INR">INR - Indian Rupee</option>
+                        <option value="KRW">KRW - South Korean Won</option>
+                        <option value="TRY">TRY - Turkish Lira</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="forex-actions">
+                <button class="forex-action-btn" onclick="convertCurrency()" id="convert-btn">Convert to PLN</button>
+            </div>
+        </div>
+
+        <!-- DCF Panel -->
+        <div class="dcf-panel" id="dcf-panel">
+            <div class="forex-header">
+                <span>Memory Values</span>
+            </div>
+            <div class="memory-values">
+                <div class="memory-item">WACC: 8.5%</div>
+                <div class="memory-item">TG: 2.5%</div>
+                <div class="memory-item">EV: 0</div>
+                <div class="memory-item">MCap: 0</div>
+            </div>
+            
+            <div class="history-header">
+                <span class="history-title">History</span>
+                <button class="clear-btn">Clear</button>
+            </div>
+            <div class="forex-history">
+                DCF calculations will appear here<br>
+                Model updates: Real-time
+            </div>
+            
+            <div class="dcf-functions">
+                <button class="dcf-btn" onclick="dcfModel()">DCF Model</button>
+                <button class="dcf-btn" onclick="setWACC()">Set WACC</button>
+                <button class="dcf-btn" onclick="setTG()">Set TG</button>
+                <button class="dcf-btn" onclick="calculateIRR()">IRR</button>
+            </div>
+            
+            <div class="dcf-advanced">
+                <button class="dcf-advanced-btn" onclick="setEV()">Set EV</button>
+                <button class="dcf-advanced-btn" onclick="setMCap()">Set MCap</button>
+                <button class="dcf-advanced-btn" onclick="setRev()">Set Rev</button>
+                <button class="dcf-advanced-btn" onclick="setEBITDA()">Set EBITDA</button>
+                <button class="dcf-advanced-btn" onclick="relEV()">Rel EV</button>
+                <button class="dcf-advanced-btn" onclick="relMCap()">Rel MCap</button>
+            </div>
+        </div>
+
+        <!-- Calculator Grid -->
         <div class="calculator-grid">
             <button class="calc-btn clear" onclick="clearAll()">AC</button>
             <button class="calc-btn function" onclick="backspace()">⌫</button>
-            <button class="calc-btn function" onclick="performOperation('%')">%</button>
-            <button class="calc-btn operator" onclick="performOperation('/')">/</button>
+            <button class="calc-btn function" onclick="openParenthesis()">(</button>
+            <button class="calc-btn function" onclick="closeParenthesis()">)</button>
 
             <button class="calc-btn" onclick="inputNumber(7)">7</button>
             <button class="calc-btn" onclick="inputNumber(8)">8</button>
             <button class="calc-btn" onclick="inputNumber(9)">9</button>
-            <button class="calc-btn operator" onclick="performOperation('*')">×</button>
+            <button class="calc-btn operator" onclick="performOperation('/')">/</button>
 
             <button class="calc-btn" onclick="inputNumber(4)">4</button>
             <button class="calc-btn" onclick="inputNumber(5)">5</button>
             <button class="calc-btn" onclick="inputNumber(6)">6</button>
-            <button class="calc-btn operator" onclick="performOperation('-')">-</button>
+            <button class="calc-btn operator" onclick="performOperation('*')">×</button>
 
             <button class="calc-btn" onclick="inputNumber(1)">1</button>
             <button class="calc-btn" onclick="inputNumber(2)">2</button>
             <button class="calc-btn" onclick="inputNumber(3)">3</button>
-            <button class="calc-btn operator" onclick="performOperation('+')">+</button>
+            <button class="calc-btn operator" onclick="performOperation('-')">-</button>
 
-            <button class="calc-btn function" onclick="multiply1M()">×1M</button>
+            <button class="calc-btn function" onclick="calculatePower()">x^y</button>
             <button class="calc-btn" onclick="inputNumber(0)">0</button>
             <button class="calc-btn" onclick="inputDecimal()">.</button>
+            <button class="calc-btn operator" onclick="performOperation('+')">+</button>
+
+            <button class="calc-btn function" onclick="calculateSquareRoot()">√</button>
+            <button class="calc-btn function" onclick="performOperation('%')">%</button>
+            <button class="calc-btn function" onclick="calculateNthRoot()">ⁿ√</button>
             <button class="calc-btn equals" onclick="calculate()">=</button>
         </div>
 
+        <!-- Multiplier Buttons -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px;">
+            <button class="special-btn" onclick="multiply1K()">×1K</button>
+            <button class="special-btn" onclick="multiply1M()">×1M</button>
+            <button class="special-btn" onclick="multiply1B()">×1B</button>
+        </div>
+
         <div class="footer">
-            <div>IB Calculator v2.1 | Enhanced Financial Modeling Suite</div>
+            IB Calculator v2.1 | Enhanced Financial Modeling Suite<br>
+            DCF: Discounted Cash Flow | LBO: Leveraged Buyout | Comps: Comparable Analysis | Forex: Currency Conversion<br>
+            Live exchange rates from ExchangeRate-API
+        </div>
+    </div>
+
+    <!-- Tutorial Modal -->
+    <div class="tutorial-modal" id="tutorial-modal">
+        <div class="tutorial-content">
+            <div class="tutorial-header">
+                <div class="tutorial-title" id="tutorial-title">📚 Calculator Tutorial</div>
+                <button class="tutorial-close" onclick="closeTutorial()">✕</button>
+            </div>
+            <div id="tutorial-body">
+                <!-- Content will be dynamically populated -->
+            </div>
         </div>
     </div>
 
     <script>
-        let display = '0';
+        // Global State
+        let display = '4716.0775';
+        let displayFormatted = '4.7K';
         let previousValue = null;
         let operation = null;
         let waitingForOperand = false;
-        let deferredPrompt = null;
-
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 Calculator app starting...');
-            updateDebugPanel();
-            setupPWA();
-            console.log('✅ Calculator app loaded successfully!');
-        });
-
-        function setupPWA() {
-            console.log('🔍 Setting up PWA...');
-            const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
-
-            if (!isStandalone) {
-                window.addEventListener('beforeinstallprompt', (e) => {
-                    console.log('🎯 beforeinstallprompt fired!');
-                    e.preventDefault();
-                    deferredPrompt = e;
-                    showInstallButton();
-                });
-            }
-            updateDebugPanel();
-        }
-
-        function showInstallButton() {
-            document.getElementById('install-btn').style.display = 'inline-block';
-            document.getElementById('debug-install').textContent = 'Showing';
-            console.log('📱 Install button now visible');
-        }
-
-        function installApp() {
-            console.log('🖱️ Install button clicked');
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    console.log('👤 User choice:', choiceResult.outcome);
-                    deferredPrompt = null;
-                });
-            }
-        }
-
-        function updateDebugPanel() {
-            document.getElementById('debug-protocol').textContent = location.protocol;
-            document.getElementById('debug-sw').textContent = 'serviceWorker' in navigator ? 'Yes' : 'No';
-            document.getElementById('debug-manifest').textContent = document.querySelector('link[rel="manifest"]') ? 'Found' : 'Missing';
-            document.getElementById('debug-standalone').textContent = window.matchMedia('(display-mode: standalone)').matches ? 'Yes' : 'No';
-        }
-
-        function updateDisplay() {
-            document.getElementById('display').textContent = display;
-            const formatted = parseFloat(display) >= 1000000 ? parseFloat(display).toLocaleString() : display;
-            document.getElementById('display-formatted').textContent = formatted;
-        }
-
-        function inputNumber(num) {
-            if (waitingForOperand) {
-                display = String(num);
-                waitingForOperand = false;
-            } else {
-                display = display === '0' ? String(num) : display + num;
-            }
-            updateDisplay();
-        }
-
-        function inputDecimal() {
-            if (waitingForOperand) {
-                display = '0.';
-                waitingForOperand = false;
-            } else if (display.indexOf('.') === -1) {
-                display = display + '.';
-            }
-            updateDisplay();
-        }
-
-        function clearAll() {
-            display = '0';
-            previousValue = null;
-            operation = null;
-            waitingForOperand = false;
-            updateDisplay();
-        }
-
-        function backspace() {
-            display = display.length > 1 ? display.slice(0, -1) : '0';
-            updateDisplay();
-        }
-
-        function performOperation(nextOperation) {
-            const inputValue = parseFloat(display);
-            if (previousValue === null) {
-                previousValue = inputValue;
-            } else if (operation) {
-                const result = doCalculation(previousValue, inputValue, operation);
-                display = String(result);
-                previousValue = result;
-            }
-            waitingForOperand = true;
-            operation = nextOperation;
-            updateDisplay();
-        }
-
-        function calculate() {
-            const inputValue = parseFloat(display);
-            if (previousValue !== null && operation) {
-                const result = doCalculation(previousValue, inputValue, operation);
-                display = String(result);
-                previousValue = null;
-                operation = null;
-                waitingForOperand = true;
-                updateDisplay();
-            }
-        }
-
-        function doCalculation(firstValue, secondValue, operation) {
-            switch (operation) {
-                case '+': return firstValue + secondValue;
-                case '-': return firstValue - secondValue;
-                case '*': return firstValue * secondValue;
-                case '/':
-                    if (secondValue === 0) {
-                        return firstValue === 0 ? NaN : (firstValue > 0 ? Infinity : -Infinity);
-                    }
-                    return firstValue / secondValue;
-                case '%': return firstValue % secondValue;
-                default: return secondValue;
-            }
-        }
-
-        function multiply1M() {
-            const val = parseFloat(display);
-            display = String(val * 1000000);
-            waitingForOperand = true;
-            updateDisplay();
-        }
-
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(function(registration) {
-                        console.log('✅ Service Worker registered:', registration.scope);
-                    })
-                    .catch(function(error) {
-                        console.log('❌ Service Worker registration failed:', error);
-                    });
-            });
-        }
-
-        updateDisplay();
-    </script>
-</body>
-</html>
+        let currentMode = 'forex';
+        let isDarkMode = true;
+        let exchangeRates = {
+            'EUR': { 'USD': 1.1403, 'PLN': 4.2869, 'GBP': 0.8456, 'JPY': 170.23 },
+            'USD': { 'EUR': 0.8771, 'PLN': 3.7594, 'GBP': 0.7414, 'JPY': 149.25 },
+            'GBP': { 'EUR': 1.1826, 'USD': 1.3489, 'PLN': 5.0697, 'JPY': 201.34 },
+            'PLN': { '
