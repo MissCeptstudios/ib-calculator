@@ -46,11 +46,13 @@
             EUR: 0.9150,
             JPY: 142.30,
             GBP: 0.7820,
-            CHF: 0.8850,
-            CAD: 1.3720,
-            CNY: 7.2800,
-            PLN: 4.0500,
             AUD: 1.4950,
+            CAD: 1.3720,
+            CHF: 0.8850,
+            CNY: 7.2800,
+            HKD: 7.8000,
+            NZD: 1.6200,
+            PLN: 4.0500,
             SEK: 10.8500
           });
           const [ratesLastUpdated, setRatesLastUpdated] = useState(null);
@@ -290,6 +292,14 @@
                 result = memory.enterprise / value;
                 calculation = `EV/Revenue: ${formatNumber(memory.enterprise)} / ${formatNumber(value)} = ${result.toFixed(1)}x`;
                 break;
+              case 'price_book':
+                result = memory.marketCap / value;
+                calculation = `P/B: ${formatNumber(memory.marketCap)} / ${formatNumber(value)} = ${result.toFixed(1)}x`;
+                break;
+              case 'ev_sales':
+                result = memory.enterprise / value;
+                calculation = `EV/Sales: ${formatNumber(memory.enterprise)} / ${formatNumber(value)} = ${result.toFixed(1)}x`;
+                break;
               default:
                 return;
             }
@@ -354,11 +364,13 @@
               EUR: 'Euro',
               JPY: 'Japanese Yen',
               GBP: 'British Pound',
-              CHF: 'Swiss Franc',
-              CAD: 'Canadian Dollar',
-              CNY: 'Chinese Yuan',
-              PLN: 'Polish Zloty',
               AUD: 'Australian Dollar',
+              CAD: 'Canadian Dollar',
+              CHF: 'Swiss Franc',
+              CNY: 'Chinese Yuan',
+              HKD: 'Hong Kong Dollar',
+              NZD: 'New Zealand Dollar',
+              PLN: 'Polish Zloty',
               SEK: 'Swedish Krona'
             };
             return names[code] || code;
@@ -380,9 +392,9 @@
           const Button = ({ onClick, className = '', children, variant = 'default', size = 'normal' }) => {
             const baseClasses = 'font-semibold rounded-lg transition-all duration-200 active:scale-95 shadow-sm border';
             const sizes = {
-              normal: 'h-12 text-sm px-3',
-              small: 'h-10 text-xs px-2',
-              large: 'h-14 text-base px-4'
+              normal: 'h-10 sm:h-12 text-xs sm:text-sm px-2 sm:px-3',
+              small: 'h-8 sm:h-10 text-xs px-1 sm:px-2',
+              large: 'h-12 sm:h-14 text-sm sm:text-base px-3 sm:px-4'
             };
             
             const variants = isDarkMode ? {
@@ -397,16 +409,16 @@
               theme: 'bg-gray-600 hover:bg-gray-500 text-yellow-400 border-gray-500 hover:border-yellow-400',
               help: 'bg-blue-600 hover:bg-blue-500 text-white border-blue-500 hover:border-blue-400'
             } : {
-              default: 'bg-gray-100 hover:bg-gray-200 text-gray-800 border-gray-300 hover:border-gray-400',
-              operator: 'bg-white hover:bg-yellow-50 text-yellow-600 border-yellow-300 hover:border-yellow-400',
-              equals: 'bg-yellow-500 hover:bg-yellow-600 text-white font-bold border-yellow-500',
-              function: 'bg-white hover:bg-blue-50 text-blue-600 border-blue-300',
-              clear: 'bg-red-500 hover:bg-red-600 text-white border-red-500',
-              ib: 'bg-yellow-400 hover:bg-yellow-500 text-black font-semibold border-yellow-400',
-              memory: 'bg-purple-500 hover:bg-purple-600 text-white border-purple-500',
-              swap: 'bg-green-500 hover:bg-green-600 text-white font-semibold border-green-500',
-              theme: 'bg-yellow-100 hover:bg-yellow-200 text-gray-800 border-yellow-300 hover:border-yellow-400',
-              help: 'bg-blue-500 hover:bg-blue-600 text-white border-blue-500'
+              default: 'bg-white hover:bg-gray-50 text-black border-gray-400 hover:border-gray-500 shadow-md',
+              operator: 'bg-orange-500 hover:bg-orange-600 text-white border-orange-500 shadow-md',
+              equals: 'bg-green-600 hover:bg-green-700 text-white font-bold border-green-600 shadow-md',
+              function: 'bg-blue-600 hover:bg-blue-700 text-white border-blue-600 shadow-md',
+              clear: 'bg-red-600 hover:bg-red-700 text-white border-red-600 shadow-md',
+              ib: 'bg-purple-600 hover:bg-purple-700 text-white font-semibold border-purple-600 shadow-md',
+              memory: 'bg-indigo-600 hover:bg-indigo-700 text-white border-indigo-600 shadow-md',
+              swap: 'bg-emerald-600 hover:bg-emerald-700 text-white font-semibold border-emerald-600 shadow-md',
+              theme: 'bg-amber-500 hover:bg-amber-600 text-black border-amber-500 hover:border-amber-600 shadow-md',
+              help: 'bg-cyan-600 hover:bg-cyan-700 text-white border-cyan-600 shadow-md'
             };
             
             return (
@@ -420,39 +432,39 @@
           };
 
           return (
-            <div className={`max-w-3xl mx-auto rounded-2xl shadow-2xl p-6 mt-8 border transition-all duration-300 ${
+            <div className={`max-w-6xl mx-auto rounded-2xl shadow-2xl p-3 sm:p-4 md:p-6 mt-4 sm:mt-6 md:mt-8 border transition-all duration-300 ${
               isDarkMode 
                 ? 'bg-gray-900 border-gray-700' 
                 : 'bg-white border-gray-200'
             }`}>
               {/* Header */}
-              <div className="text-center mb-6">
-                <div className="flex items-center justify-between mb-4">
+              <div className="text-center mb-4 sm:mb-6">
+                <div className="flex flex-col sm:flex-row items-center justify-between mb-3 sm:mb-4 gap-3 sm:gap-0">
                   <Button
                     variant="help"
                     size="normal"
                     onClick={() => setShowTutorial(true)}
-                    className="w-24 h-12 flex items-center justify-center gap-2 font-bold"
+                    className="w-20 sm:w-24 h-10 sm:h-12 flex items-center justify-center gap-1 sm:gap-2 font-bold text-xs sm:text-sm"
                     title={`Learn how to use ${mode.toUpperCase()} mode with examples`}
                   >
-                    <span className="text-lg">❓</span>
+                    <span className="text-sm sm:text-lg">❓</span>
                     HELP
                   </Button>
-                  <h1 className={`text-2xl font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>
+                  <h1 className={`text-xl sm:text-2xl md:text-3xl font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
                     Investment Banking Calculator
                   </h1>
                   <Button
                     variant="theme"
                     size="small"
                     onClick={() => setIsDarkMode(!isDarkMode)}
-                    className="w-12 h-8 flex items-center justify-center"
+                    className="w-10 sm:w-12 h-6 sm:h-8 flex items-center justify-center text-xs sm:text-sm"
                     title={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
                   >
                     {isDarkMode ? '☀️' : '🌙'}
                   </Button>
                 </div>
-                <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                  Professional financial modeling and analysis tool
+                <p className={`text-xs sm:text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-800'}`}>
+                  Professional financial modeling and analysis tool by MissCept
                 </p>
               </div>
 
@@ -509,27 +521,27 @@
               )}
 
               {/* Display */}
-              <div className="mb-6">
-                <div className={`p-6 rounded-xl mb-4 border transition-all duration-300 ${
+              <div className="mb-4 sm:mb-6">
+                <div className={`p-4 sm:p-6 rounded-xl mb-3 sm:mb-4 border transition-all duration-300 ${
                   isDarkMode 
                     ? 'bg-black text-white border-gray-600' 
-                    : 'bg-gray-50 text-gray-800 border-gray-200'
+                    : 'bg-gray-100 text-black border-gray-400 shadow-inner'
                 }`}>
-                  <div className="text-right text-3xl font-mono overflow-hidden mb-2">
+                  <div className="text-right text-xl sm:text-2xl md:text-3xl font-mono overflow-hidden mb-2">
                     {formatNumber(parseFloat(display) || 0)}
                   </div>
-                  <div className={`text-right text-lg mb-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                  <div className={`text-right text-sm sm:text-lg mb-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                     {parseFloat(display) >= 1000000 ? `${parseFloat(display).toLocaleString()}` : display}
                   </div>
                   {operation && previousValue !== null && (
-                    <div className={`text-right text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                    <div className={`text-right text-xs sm:text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-700'}`}>
                       {formatNumber(previousValue)} {operation}
                     </div>
                   )}
                 </div>
 
                 {/* Mode Selector */}
-                <div className="flex gap-2 mb-4">
+                <div className="flex gap-1 sm:gap-2 mb-3 sm:mb-4">
                   {[
                     { key: 'basic', label: 'BASIC' },
                     { key: 'dcf', label: 'DCF' },
@@ -547,7 +559,7 @@
                           setHistory([]);
                         }
                       }}
-                      className="flex-1"
+                      className="flex-1 text-xs sm:text-sm"
                     >
                       {m.label}
                     </Button>
@@ -556,16 +568,16 @@
 
                 {/* Memory/Status Display */}
                 {(mode === 'forex' || (mode !== 'basic' && mode !== 'forex')) && (
-                  <div className={`p-3 rounded-lg mb-4 border transition-all duration-300 ${
+                  <div className={`p-2 sm:p-3 rounded-lg mb-3 sm:mb-4 border transition-all duration-300 ${
                     isDarkMode 
                       ? 'bg-gray-800 border-gray-600' 
-                      : 'bg-gray-100 border-gray-200'
+                      : 'bg-white border-gray-400 shadow-md'
                   }`}>
                     {mode === 'forex' ? (
                       <div>
                         <div className="flex justify-between items-center mb-2">
-                          <div className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                            Exchange Rates (Base: {selectedCurrency})
+                          <div className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-800'}`}>
+                            Top Currencies: USD, EUR, GBP, AUD, CHF, PLN
                           </div>
                           <div className="flex items-center gap-2">
                             {ratesLastUpdated && (
@@ -584,44 +596,57 @@
                             </Button>
                           </div>
                         </div>
-                        <div className="grid grid-cols-5 gap-2 text-xs">
+                        <div className="grid grid-cols-3 sm:grid-cols-5 gap-1 sm:gap-2 text-xs">
                           {Object.keys(exchangeRates).filter(c => c !== selectedCurrency).slice(0, 8).map(currency => (
-                            <div key={currency} className={`px-2 py-1 rounded transition-all duration-300 ${
+                            <div key={currency} className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 text-center ${
                               isDarkMode 
                                 ? 'bg-gray-700 text-gray-300' 
-                                : 'bg-white text-gray-700 border border-gray-200'
+                                : 'bg-gray-200 text-black border border-gray-400'
                             }`}>
-                              {currency}: {getExchangeRate(selectedCurrency, currency).toFixed(currency === 'JPY' ? 2 : 4)}
+                              <div className="font-semibold">{currency}</div>
+                              <div className="text-xs">{getExchangeRate(selectedCurrency, currency).toFixed(currency === 'JPY' ? 2 : 4)}</div>
                             </div>
                           ))}
                         </div>
                       </div>
                     ) : (
                       <div>
-                        <div className={`text-xs mb-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                        <div className={`text-xs mb-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-800'}`}>
                           Memory Values
                         </div>
-                        <div className="grid grid-cols-4 gap-2 text-xs">
-                          <div className={`px-2 py-1 rounded transition-all duration-300 ${
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 sm:gap-2 text-xs">
+                          <div className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 text-center ${
                             isDarkMode 
                               ? 'bg-gray-700 text-gray-300' 
-                              : 'bg-white text-gray-700 border border-gray-200'
-                          }`}>WACC: {memory.wacc}%</div>
-                          <div className={`px-2 py-1 rounded transition-all duration-300 ${
+                              : 'bg-gray-200 text-black border border-gray-400'
+                          }`}>
+                            <div className="font-semibold">WACC</div>
+                            <div>{memory.wacc}%</div>
+                          </div>
+                          <div className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 text-center ${
                             isDarkMode 
                               ? 'bg-gray-700 text-gray-300' 
-                              : 'bg-white text-gray-700 border border-gray-200'
-                          }`}>TG: {memory.terminalGrowth}%</div>
-                          <div className={`px-2 py-1 rounded transition-all duration-300 ${
+                              : 'bg-gray-200 text-black border border-gray-400'
+                          }`}>
+                            <div className="font-semibold">TG</div>
+                            <div>{memory.terminalGrowth}%</div>
+                          </div>
+                          <div className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 text-center ${
                             isDarkMode 
                               ? 'bg-gray-700 text-gray-300' 
-                              : 'bg-white text-gray-700 border border-gray-200'
-                          }`}>EV: {formatNumber(memory.enterprise)}</div>
-                          <div className={`px-2 py-1 rounded transition-all duration-300 ${
+                              : 'bg-gray-200 text-black border border-gray-400'
+                          }`}>
+                            <div className="font-semibold">EV</div>
+                            <div>{formatNumber(memory.enterprise)}</div>
+                          </div>
+                          <div className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 text-center ${
                             isDarkMode 
                               ? 'bg-gray-700 text-gray-300' 
-                              : 'bg-white text-gray-700 border border-gray-200'
-                          }`}>MCap: {formatNumber(memory.marketCap)}</div>
+                              : 'bg-gray-200 text-black border border-gray-400'
+                          }`}>
+                            <div className="font-semibold">MCap</div>
+                            <div>{formatNumber(memory.marketCap)}</div>
+                          </div>
                         </div>
                       </div>
                     )}
@@ -661,22 +686,27 @@
 
               {/* Mode-specific functions */}
               {mode === 'forex' && (
-                <div className="mb-4">
-                  <div className="grid grid-cols-5 gap-4 mb-4">
-                    <div className="col-span-2">
-                      <label className={`block text-xs mb-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                <div className="mb-3 sm:mb-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-5 gap-2 sm:gap-4 mb-3 sm:mb-4">
+                    <div className="sm:col-span-2">
+                      <label className={`block text-xs mb-1 sm:mb-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-800'}`}>
                         From Currency
                       </label>
                       <select
                         value={selectedCurrency}
                         onChange={(e) => setSelectedCurrency(e.target.value)}
-                        className={`w-full border rounded-lg px-3 py-2 text-sm focus:outline-none transition-all duration-300 ${
+                        className={`w-full border rounded-lg px-2 sm:px-3 py-2 text-xs sm:text-sm focus:outline-none transition-all duration-300 ${
                           isDarkMode 
                             ? 'bg-gray-700 text-white border-gray-500 focus:border-yellow-400' 
                             : 'bg-white text-gray-800 border-gray-300 focus:border-yellow-500'
                         }`}
                       >
-                        {Object.keys(exchangeRates).map((currency) => (
+                        {['USD', 'EUR', 'JPY', 'GBP', 'AUD', 'CAD', 'CHF', 'CNY', 'HKD', 'NZD'].map((currency) => (
+                          <option key={currency} value={currency}>
+                            {currency} - {getCurrencyName(currency)}
+                          </option>
+                        ))}
+                        {Object.keys(exchangeRates).filter(c => !['USD', 'EUR', 'JPY', 'GBP', 'AUD', 'CAD', 'CHF', 'CNY', 'HKD', 'NZD'].includes(c)).map((currency) => (
                           <option key={currency} value={currency}>
                             {currency} - {getCurrencyName(currency)}
                           </option>
@@ -688,26 +718,31 @@
                         variant="swap" 
                         size="small"
                         onClick={swapCurrencies}
-                        className="h-10 w-10 flex items-center justify-center p-0"
+                        className="h-8 sm:h-10 w-8 sm:w-10 flex items-center justify-center p-0 text-sm sm:text-base"
                         title="Swap currencies"
                       >
                         ⇄
                       </Button>
                     </div>
-                    <div className="col-span-2">
-                      <label className={`block text-xs mb-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                    <div className="sm:col-span-2">
+                      <label className={`block text-xs mb-1 sm:mb-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-800'}`}>
                         To Currency
                       </label>
                       <select
                         value={selectedToCurrency}
                         onChange={(e) => setSelectedToCurrency(e.target.value)}
-                        className={`w-full border rounded-lg px-3 py-2 text-sm focus:outline-none transition-all duration-300 ${
+                        className={`w-full border rounded-lg px-2 sm:px-3 py-2 text-xs sm:text-sm focus:outline-none transition-all duration-300 ${
                           isDarkMode 
                             ? 'bg-gray-700 text-white border-gray-500 focus:border-yellow-400' 
                             : 'bg-white text-gray-800 border-gray-300 focus:border-yellow-500'
                         }`}
                       >
-                        {Object.keys(exchangeRates).filter(c => c !== selectedCurrency).map((currency) => (
+                        {['USD', 'EUR', 'JPY', 'GBP', 'AUD', 'CAD', 'CHF', 'CNY', 'HKD', 'NZD'].filter(c => c !== selectedCurrency).map((currency) => (
+                          <option key={currency} value={currency}>
+                            {currency} - {getCurrencyName(currency)}
+                          </option>
+                        ))}
+                        {Object.keys(exchangeRates).filter(c => c !== selectedCurrency && !['USD', 'EUR', 'JPY', 'GBP', 'AUD', 'CAD', 'CHF', 'CNY', 'HKD', 'NZD'].includes(c)).map((currency) => (
                           <option key={currency} value={currency}>
                             {currency} - {getCurrencyName(currency)}
                           </option>
@@ -715,21 +750,22 @@
                       </select>
                     </div>
                   </div>
-                  <div className="grid grid-cols-3 gap-2">
-                    <Button variant="ib" onClick={() => performForexConversion(selectedToCurrency)}>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    <Button variant="ib" onClick={() => performForexConversion(selectedToCurrency)} className="text-xs sm:text-sm">
                       Convert to {selectedToCurrency}
                     </Button>
                     <Button variant="function" onClick={() => {
                       const rate = getExchangeRate(selectedCurrency, selectedToCurrency);
                       setDisplay(String(rate.toFixed(6)));
                       setWaitingForOperand(true);
-                    }}>
+                    }} className="text-xs sm:text-sm">
                       Get Rate
                     </Button>
                     <Button 
                       variant="function" 
                       onClick={fetchExchangeRates}
                       disabled={isLoadingRates}
+                      className="text-xs sm:text-sm"
                     >
                       {isLoadingRates ? 'Updating...' : 'Update Rates'}
                     </Button>
@@ -738,28 +774,28 @@
               )}
 
               {mode === 'dcf' && (
-                <div className="grid grid-cols-4 gap-2 mb-4">
-                  <Button variant="ib" onClick={calculateDCF}>DCF Model</Button>
-                  <Button variant="memory" onClick={() => storeMemory('wacc')}>Set WACC</Button>
-                  <Button variant="memory" onClick={() => storeMemory('terminalGrowth')}>Set TG</Button>
-                  <Button variant="ib" onClick={calculateIRR}>IRR</Button>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 sm:gap-2 mb-3 sm:mb-4">
+                  <Button variant="ib" onClick={calculateDCF} className="text-xs sm:text-sm">DCF Model</Button>
+                  <Button variant="memory" onClick={() => storeMemory('wacc')} className="text-xs sm:text-sm">Set WACC</Button>
+                  <Button variant="memory" onClick={() => storeMemory('terminalGrowth')} className="text-xs sm:text-sm">Set TG</Button>
+                  <Button variant="ib" onClick={calculateIRR} className="text-xs sm:text-sm">IRR</Button>
                 </div>
               )}
 
               {mode === 'comps' && (
-                <div className="mb-4">
-                  <div className="grid grid-cols-5 gap-2 mb-2">
-                    <Button variant="ib" size="small" onClick={() => calculateMultiple('ev_ebitda')}>EV/EBITDA</Button>
-                    <Button variant="ib" size="small" onClick={() => calculateMultiple('pe')}>P/E</Button>
-                    <Button variant="ib" size="small" onClick={() => calculateMultiple('ev_revenue')}>EV/Rev</Button>
-                    <Button variant="ib" size="small" onClick={() => calculateMultiple('price_book')}>P/B</Button>
-                    <Button variant="ib" size="small" onClick={() => calculateMultiple('ev_sales')}>EV/Sales</Button>
+                <div className="mb-3 sm:mb-4">
+                  <div className="grid grid-cols-2 sm:grid-cols-5 gap-1 sm:gap-2 mb-2">
+                    <Button variant="ib" size="small" onClick={() => calculateMultiple('ev_ebitda')} className="text-xs">EV/EBITDA</Button>
+                    <Button variant="ib" size="small" onClick={() => calculateMultiple('pe')} className="text-xs">P/E</Button>
+                    <Button variant="ib" size="small" onClick={() => calculateMultiple('ev_revenue')} className="text-xs">EV/Rev</Button>
+                    <Button variant="ib" size="small" onClick={() => calculateMultiple('price_book')} className="text-xs">P/B</Button>
+                    <Button variant="ib" size="small" onClick={() => calculateMultiple('ev_sales')} className="text-xs">EV/Sales</Button>
                   </div>
                 </div>
               )}
 
               {mode === 'lbo' && (
-                <div className="grid grid-cols-4 gap-2 mb-4">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 sm:gap-2 mb-3 sm:mb-4">
                   <Button variant="ib" size="small" onClick={() => {
                     const equity = parseFloat(display);
                     const debt = equity * memory.debtEquityRatio;
@@ -767,68 +803,68 @@
                     setDisplay(String(totalCost));
                     setHistory(prev => [`LBO: Equity=${formatNumber(equity)}, Debt=${formatNumber(debt)}, Total=${formatNumber(totalCost)}`, ...prev.slice(0, 19)]);
                     setWaitingForOperand(true);
-                  }}>LBO Size</Button>
+                  }} className="text-xs">LBO Size</Button>
                   <Button variant="ib" size="small" onClick={() => {
                     const ebitda = parseFloat(display);
                     const debtCapacity = ebitda * memory.debtEbitdaMultiple;
                     setDisplay(String(debtCapacity));
                     setHistory(prev => [`Debt: ${formatNumber(ebitda)} × ${memory.debtEbitdaMultiple}x = ${formatNumber(debtCapacity)}`, ...prev.slice(0, 19)]);
                     setWaitingForOperand(true);
-                  }}>Debt Cap</Button>
-                  <Button variant="ib" size="small" onClick={calculateIRR}>IRR</Button>
+                  }} className="text-xs">Debt Cap</Button>
+                  <Button variant="ib" size="small" onClick={calculateIRR} className="text-xs">IRR</Button>
                   <Button variant="ib" size="small" onClick={() => {
                     const currentVal = parseFloat(display);
                     const moic = currentVal / (memory.enterprise || 1);
                     setDisplay(String(moic.toFixed(1)));
                     setHistory(prev => [`MOIC: ${formatNumber(currentVal)} / ${formatNumber(memory.enterprise)} = ${moic.toFixed(1)}x`, ...prev.slice(0, 19)]);
                     setWaitingForOperand(true);
-                  }}>MOIC</Button>
+                  }} className="text-xs">MOIC</Button>
                 </div>
               )}
 
               {/* Memory Functions */}
               {(mode === 'dcf' || mode === 'comps' || mode === 'lbo') && (
-                <div className="grid grid-cols-6 gap-2 mb-4">
-                  <Button variant="memory" size="small" onClick={() => storeMemory('enterprise')}>Set EV</Button>
-                  <Button variant="memory" size="small" onClick={() => storeMemory('marketCap')}>Set MCap</Button>
-                  <Button variant="memory" size="small" onClick={() => storeMemory('revenue')}>Set Rev</Button>
-                  <Button variant="memory" size="small" onClick={() => storeMemory('ebitda')}>Set EBITDA</Button>
-                  <Button variant="memory" size="small" onClick={() => recallMemory('enterprise')}>Rcl EV</Button>
-                  <Button variant="memory" size="small" onClick={() => recallMemory('marketCap')}>Rcl MCap</Button>
+                <div className="grid grid-cols-3 sm:grid-cols-6 gap-1 sm:gap-2 mb-3 sm:mb-4">
+                  <Button variant="memory" size="small" onClick={() => storeMemory('enterprise')} className="text-xs">Set EV</Button>
+                  <Button variant="memory" size="small" onClick={() => storeMemory('marketCap')} className="text-xs">Set MCap</Button>
+                  <Button variant="memory" size="small" onClick={() => storeMemory('revenue')} className="text-xs">Set Rev</Button>
+                  <Button variant="memory" size="small" onClick={() => storeMemory('ebitda')} className="text-xs">Set EBITDA</Button>
+                  <Button variant="memory" size="small" onClick={() => recallMemory('enterprise')} className="text-xs">Rcl EV</Button>
+                  <Button variant="memory" size="small" onClick={() => recallMemory('marketCap')} className="text-xs">Rcl MCap</Button>
                 </div>
               )}
 
               {/* Basic Calculator Layout */}
-              <div className="space-y-3">
-                <div className="grid grid-cols-4 gap-3">
+              <div className="space-y-2 sm:space-y-3">
+                <div className="grid grid-cols-4 gap-2 sm:gap-3">
                   <Button variant="clear" onClick={clear}>AC</Button>
                   <Button variant="function" onClick={() => setDisplay(display.slice(0, -1) || '0')}>⌫</Button>
                   <Button variant="operator" onClick={() => performOperation('%')}>%</Button>
                   <Button variant="operator" onClick={() => performOperation('÷')}>÷</Button>
                 </div>
 
-                <div className="grid grid-cols-4 gap-3">
+                <div className="grid grid-cols-4 gap-2 sm:gap-3">
                   <Button onClick={() => inputNumber(7)}>7</Button>
                   <Button onClick={() => inputNumber(8)}>8</Button>
                   <Button onClick={() => inputNumber(9)}>9</Button>
                   <Button variant="operator" onClick={() => performOperation('×')}>×</Button>
                 </div>
 
-                <div className="grid grid-cols-4 gap-3">
+                <div className="grid grid-cols-4 gap-2 sm:gap-3">
                   <Button onClick={() => inputNumber(4)}>4</Button>
                   <Button onClick={() => inputNumber(5)}>5</Button>
                   <Button onClick={() => inputNumber(6)}>6</Button>
                   <Button variant="operator" onClick={() => performOperation('-')}>-</Button>
                 </div>
 
-                <div className="grid grid-cols-4 gap-3">
+                <div className="grid grid-cols-4 gap-2 sm:gap-3">
                   <Button onClick={() => inputNumber(1)}>1</Button>
                   <Button onClick={() => inputNumber(2)}>2</Button>
                   <Button onClick={() => inputNumber(3)}>3</Button>
                   <Button variant="operator" onClick={() => performOperation('+')}>+</Button>
                 </div>
 
-                <div className="grid grid-cols-4 gap-3">
+                <div className="grid grid-cols-4 gap-2 sm:gap-3">
                   <Button variant="function" onClick={() => {
                     const val = parseFloat(display);
                     setDisplay(String(val * 1000));
@@ -839,7 +875,7 @@
                   <Button variant="equals" onClick={performEquals}>=</Button>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-2 sm:gap-3">
                   <Button variant="function" onClick={() => {
                     const val = parseFloat(display);
                     setDisplay(String(val * 1000000));
@@ -854,11 +890,11 @@
               </div>
 
               {/* Footer */}
-              <div className={`text-xs mt-6 text-center transition-all duration-300 ${
+              <div className={`text-xs mt-4 sm:mt-6 text-center transition-all duration-300 ${
                 isDarkMode ? 'text-gray-400' : 'text-gray-600'
               }`}>
                 <div className="mb-1">IB Calculator v2.1 | Enhanced Financial Modeling Suite</div>
-                <div>DCF: Discounted Cash Flow | LBO: Leveraged Buyout | Comps: Comparable Analysis | Forex: Currency Conversion</div>
+                <div className="hidden sm:block">DCF: Discounted Cash Flow | LBO: Leveraged Buyout | Comps: Comparable Analysis | Forex: Currency Conversion</div>
                 {mode === 'forex' && (
                   <div className={`mt-1 text-center ${isDarkMode ? 'text-green-400' : 'text-green-600'}`}>
                     Live exchange rates from ExchangeRate-API
