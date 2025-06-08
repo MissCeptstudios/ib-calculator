@@ -1,14 +1,17 @@
 const CACHE_NAME = 'ib-calculator-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/manifest.json'
+  './',
+  './index.html',
+  './manifest.json',
+  './icon-192.png',
+  './icon-512.png'
 ];
 
 self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(function(cache) {
+        console.log('Opened cache');
         return cache.addAll(urlsToCache);
       })
   );
@@ -22,7 +25,6 @@ self.addEventListener('fetch', function(event) {
           return response;
         }
         return fetch(event.request);
-      }
-    )
+      })
   );
 });
