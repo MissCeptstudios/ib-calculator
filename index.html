@@ -566,66 +566,51 @@
                 </div>
 
                 {/* Memory/Status Display */}
-                {(mode === 'forex' || (mode !== 'basic' && mode !== 'forex')) && (
+                {(mode !== 'basic' && mode !== 'forex') && (
                   <div className={`p-2 sm:p-3 rounded-lg mb-3 sm:mb-4 border transition-all duration-300 ${
                     isDarkMode 
                       ? 'bg-gray-800 border-gray-600' 
                       : 'bg-white border-gray-400 shadow-md'
                   }`}>
-                    {mode === 'forex' ? (
-                      <div>
-                        <div className="flex flex-col items-center mb-2">
-                          <div className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-800'}`}>
-                            Live Exchange Rates
-                          </div>
-                          {ratesLastUpdated && (
-                            <div className={`text-xs ${isDarkMode ? 'text-gray-500' : 'text-gray-500'} mt-1`}>
-                              Updated: {ratesLastUpdated.toLocaleTimeString()}
-                            </div>
-                          )}
+                    <div>
+                      <div className={`text-xs mb-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-800'}`}>
+                        Memory Values
+                      </div>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 sm:gap-2 text-xs">
+                        <div className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 text-center ${
+                          isDarkMode 
+                            ? 'bg-gray-700 text-gray-300' 
+                            : 'bg-gray-200 text-black border border-gray-400'
+                        }`}>
+                          <div className="font-semibold">WACC</div>
+                          <div>{memory.wacc}%</div>
+                        </div>
+                        <div className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 text-center ${
+                          isDarkMode 
+                            ? 'bg-gray-700 text-gray-300' 
+                            : 'bg-gray-200 text-black border border-gray-400'
+                        }`}>
+                          <div className="font-semibold">TG</div>
+                          <div>{memory.terminalGrowth}%</div>
+                        </div>
+                        <div className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 text-center ${
+                          isDarkMode 
+                            ? 'bg-gray-700 text-gray-300' 
+                            : 'bg-gray-200 text-black border border-gray-400'
+                        }`}>
+                          <div className="font-semibold">EV</div>
+                          <div>{formatNumber(memory.enterprise)}</div>
+                        </div>
+                        <div className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 text-center ${
+                          isDarkMode 
+                            ? 'bg-gray-700 text-gray-300' 
+                            : 'bg-gray-200 text-black border border-gray-400'
+                        }`}>
+                          <div className="font-semibold">MCap</div>
+                          <div>{formatNumber(memory.marketCap)}</div>
                         </div>
                       </div>
-                    ) : (
-                      <div>
-                        <div className={`text-xs mb-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-800'}`}>
-                          Memory Values
-                        </div>
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 sm:gap-2 text-xs">
-                          <div className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 text-center ${
-                            isDarkMode 
-                              ? 'bg-gray-700 text-gray-300' 
-                              : 'bg-gray-200 text-black border border-gray-400'
-                          }`}>
-                            <div className="font-semibold">WACC</div>
-                            <div>{memory.wacc}%</div>
-                          </div>
-                          <div className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 text-center ${
-                            isDarkMode 
-                              ? 'bg-gray-700 text-gray-300' 
-                              : 'bg-gray-200 text-black border border-gray-400'
-                          }`}>
-                            <div className="font-semibold">TG</div>
-                            <div>{memory.terminalGrowth}%</div>
-                          </div>
-                          <div className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 text-center ${
-                            isDarkMode 
-                              ? 'bg-gray-700 text-gray-300' 
-                              : 'bg-gray-200 text-black border border-gray-400'
-                          }`}>
-                            <div className="font-semibold">EV</div>
-                            <div>{formatNumber(memory.enterprise)}</div>
-                          </div>
-                          <div className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 text-center ${
-                            isDarkMode 
-                              ? 'bg-gray-700 text-gray-300' 
-                              : 'bg-gray-200 text-black border border-gray-400'
-                          }`}>
-                            <div className="font-semibold">MCap</div>
-                            <div>{formatNumber(memory.marketCap)}</div>
-                          </div>
-                        </div>
-                      </div>
-                    )}
+                    </div>
                   </div>
                 )}
 
@@ -800,22 +785,26 @@
                 <div className="grid grid-cols-4 gap-2 sm:gap-3">
                   <Button variant="clear" onClick={clear}>AC</Button>
                   <Button variant="function" onClick={() => setDisplay(display.slice(0, -1) || '0')}>⌫</Button>
+                  <Button variant="function" onClick={() => setDisplay(display + '(')}>(</Button>
+                  <Button variant="function" onClick={() => setDisplay(display + ')')}>)</Button>
+                </div>
+
+                <div className="grid grid-cols-4 gap-2 sm:gap-3">
                   <Button variant="operator" onClick={() => performOperation('%')}>%</Button>
                   <Button variant="operator" onClick={() => performOperation('÷')}>÷</Button>
+                  <Button variant="operator" onClick={() => performOperation('×')}>×</Button>
+                  <Button variant="operator" onClick={() => performOperation('-')}>-</Button>
                 </div>
 
                 <div className="grid grid-cols-4 gap-2 sm:gap-3">
                   <Button onClick={() => inputNumber(7)}>7</Button>
                   <Button onClick={() => inputNumber(8)}>8</Button>
                   <Button onClick={() => inputNumber(9)}>9</Button>
-                  <Button variant="operator" onClick={() => performOperation('×')}>×</Button>
-                </div>
-
-                <div className="grid grid-cols-4 gap-2 sm:gap-3">
-                  <Button onClick={() => inputNumber(4)}>4</Button>
-                  <Button onClick={() => inputNumber(5)}>5</Button>
-                  <Button onClick={() => inputNumber(6)}>6</Button>
-                  <Button variant="operator" onClick={() => performOperation('-')}>-</Button>
+                  <Button variant="function" onClick={() => {
+                    const val = parseFloat(display);
+                    setDisplay(String(val * 1000000));
+                    setWaitingForOperand(true);
+                  }}>×1M</Button>
                 </div>
 
                 <div className="grid grid-cols-4 gap-2 sm:gap-3">
@@ -828,25 +817,12 @@
                 <div className="grid grid-cols-4 gap-2 sm:gap-3">
                   <Button variant="function" onClick={() => {
                     const val = parseFloat(display);
-                    setDisplay(String(val * 1000));
-                    setWaitingForOperand(true);
-                  }}>×1K</Button>
-                  <Button onClick={() => inputNumber(0)}>0</Button>
-                  <Button onClick={inputDecimal}>.</Button>
-                  <Button variant="equals" onClick={performEquals}>=</Button>
-                </div>
-
-                <div className="grid grid-cols-2 gap-2 sm:gap-3">
-                  <Button variant="function" onClick={() => {
-                    const val = parseFloat(display);
-                    setDisplay(String(val * 1000000));
-                    setWaitingForOperand(true);
-                  }}>×1M</Button>
-                  <Button variant="function" onClick={() => {
-                    const val = parseFloat(display);
                     setDisplay(String(val * 1000000000));
                     setWaitingForOperand(true);
                   }}>×1B</Button>
+                  <Button onClick={() => inputNumber(0)}>0</Button>
+                  <Button onClick={inputDecimal}>.</Button>
+                  <Button variant="equals" onClick={performEquals}>=</Button>
                 </div>
               </div>
 
