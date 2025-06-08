@@ -197,20 +197,40 @@
           }, [mode]);
           
           useEffect(() => {
-            const isInstalled = window.matchMedia('(display-mode: standalone)').matches || 
-                               window.navigator.standalone === true;
+            // Check if app is already installed/running in standalone mode
+            const isStandalone = window.matchMedia('(display-mode: standalone)').matches || 
+                                window.navigator.standalone === true ||
+                                document.referrer.includes('android-app://') ||
+                                window.location.search.includes('utm_source=homescreen');
             
-            if (!isInstalled) {
-              window.addEventListener('beforeinstallprompt', (e) => {
+            // Only show install button if not in standalone mode
+            if (!isStandalone) {
+              // Listen for the beforeinstallprompt event
+              const handleBeforeInstallPrompt = (e) => {
                 e.preventDefault();
                 window.deferredPrompt = e;
                 setShowInstallButton(true);
-              });
+              };
 
-              window.addEventListener('appinstalled', () => {
+              // Listen for successful app installation
+              const handleAppInstalled = () => {
                 setShowInstallButton(false);
                 window.deferredPrompt = null;
-              });
+                console.log('PWA was installed');
+              };
+
+              window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+              window.addEventListener('appinstalled', handleAppInstalled);
+
+              // Cleanup event listeners
+              return () => {
+                window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+                window.removeEventListener('appinstalled', handleAppInstalled);
+              };
+            } else {
+              // App is already running in standalone mode
+              setShowInstallButton(false);
+              console.log('App is running in standalone mode');
             }
           }, []);
 
@@ -492,7 +512,7 @@
               swap: 'bg-green-600 hover:bg-green-500 text-white font-semibold border-green-500',
               theme: 'bg-gray-600 hover:bg-gray-500 text-yellow-400 border-gray-500 hover:border-yellow-400',
               help: 'bg-blue-600 hover:bg-blue-500 text-white border-blue-500 hover:border-blue-400',
-              install: 'bg-green-600 hover:bg-green-700 text-white font-semibold border-green-600 shadow-lg animate-pulse'
+              install: 'bg-gray-600 hover:bg-gray-500 text-yellow-400 border-gray-500 hover:border-yellow-400 animate-pulse'
             } : {
               default: 'bg-white hover:bg-gray-50 text-black border-gray-400 hover:border-gray-500 shadow-md',
               operator: 'bg-orange-500 hover:bg-orange-600 text-white border-orange-500 shadow-md',
@@ -504,7 +524,7 @@
               swap: 'bg-emerald-600 hover:bg-emerald-700 text-white font-semibold border-emerald-600 shadow-md',
               theme: 'bg-amber-500 hover:bg-amber-600 text-black border-amber-500 hover:border-amber-600 shadow-md',
               help: 'bg-cyan-600 hover:bg-cyan-700 text-white border-cyan-600 shadow-md',
-              install: 'bg-green-600 hover:bg-green-700 text-white font-semibold border-green-600 shadow-lg animate-pulse'
+              install: 'bg-amber-500 hover:bg-amber-600 text-black border-amber-500 hover:border-amber-600 shadow-md animate-pulse'
             };
             
             return (
@@ -548,11 +568,21 @@
                           if (window.deferredPrompt) {
                             window.deferredPrompt.prompt();
                             window.deferredPrompt.userChoice.then((choiceResult) => {
+                              console.log('User choice:', choiceResult.outcome);
                               if (choiceResult.outcome === 'accepted') {
+                                console.log('User accepted the install prompt');
                                 setShowInstallButton(false);
+                              } else {
+                                console.log('User dismissed the install prompt');
                               }
                               window.deferredPrompt = null;
+                            }).catch((error) => {
+                              console.error('Error during install prompt:', error);
+                              setShowInstallButton(false);
                             });
+                          } else {
+                            console.log('No install prompt available');
+                            setShowInstallButton(false);
                           }
                         }}
                         className="mb-2 px-4 py-2 text-sm"
