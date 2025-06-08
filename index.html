@@ -65,7 +65,7 @@
           const [selectedCurrency, setSelectedCurrency] = useState('USD');
           const [selectedToCurrency, setSelectedToCurrency] = useState('EUR');
           const [showTutorial, setShowTutorial] = useState(false);
-
+        const [showInstallButton, setShowInstallButton] = useState(false);
           const getTutorialContent = () => {
             switch (mode) {
               case 'basic':
@@ -179,6 +179,23 @@
               fetchExchangeRates();
             }
           }, [mode]);
+            useEffect(() => {
+  const isInstalled = window.matchMedia('(display-mode: standalone)').matches || 
+                     window.navigator.standalone === true;
+  
+  if (!isInstalled) {
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      window.deferredPrompt = e;
+      setShowInstallButton(true);
+    });
+
+    window.addEventListener('appinstalled', () => {
+      setShowInstallButton(false);
+      window.deferredPrompt = null;
+    });
+  }
+}, []);
 
           const inputNumber = (num) => {
             if (waitingForOperand) {
@@ -456,6 +473,27 @@
                   <h1 className={`text-xl sm:text-2xl md:text-3xl font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
                     Investment Banking Calculator
                   </h1>
+                    <div className="flex flex-col items-center">
+  <h1 className={`text-xl sm:text-2xl md:text-3xl font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+    Investment Banking Calculator
+  </h1>
+  {showInstallButton && (
+    <button
+      onClick={() => {
+        window.deferredPrompt.prompt();
+        window.deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            setShowInstallButton(false);
+            window.deferredPrompt = null;
+          }
+        });
+      }}
+      className="mb-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-semibold shadow-lg animate-pulse"
+    >
+      📱 Install App
+    </button>
+  )}
+</div>
                   <Button
                     variant="theme"
                     size="small"
