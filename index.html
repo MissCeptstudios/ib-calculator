@@ -432,14 +432,14 @@
           };
 
           return (
-            <div className={`max-w-6xl mx-auto rounded-2xl shadow-2xl p-3 sm:p-4 md:p-6 mt-4 sm:mt-6 md:mt-8 border transition-all duration-300 ${
+            <div className={`max-w-4xl mx-auto rounded-2xl shadow-2xl p-3 sm:p-4 md:p-6 mt-4 sm:mt-6 md:mt-8 border transition-all duration-300 ${
               isDarkMode 
                 ? 'bg-gray-900 border-gray-700' 
                 : 'bg-white border-gray-200'
             }`}>
               {/* Header */}
               <div className="text-center mb-4 sm:mb-6">
-                <div className="flex flex-col sm:flex-row items-center justify-between mb-3 sm:mb-4 gap-3 sm:gap-0">
+                <div className="flex items-center justify-between mb-3 sm:mb-4">
                   <Button
                     variant="help"
                     size="normal"
@@ -577,7 +577,7 @@
                       <div>
                         <div className="flex justify-between items-center mb-2">
                           <div className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-800'}`}>
-                            Top Currencies: USD, EUR, GBP, AUD, CHF, PLN
+                            Live Exchange Rates
                           </div>
                           <div className="flex items-center gap-2">
                             {ratesLastUpdated && (
@@ -595,18 +595,6 @@
                               {isLoadingRates ? '⟳' : '🔄'}
                             </Button>
                           </div>
-                        </div>
-                        <div className="grid grid-cols-3 sm:grid-cols-5 gap-1 sm:gap-2 text-xs">
-                          {Object.keys(exchangeRates).filter(c => c !== selectedCurrency).slice(0, 8).map(currency => (
-                            <div key={currency} className={`px-1 sm:px-2 py-1 rounded transition-all duration-300 text-center ${
-                              isDarkMode 
-                                ? 'bg-gray-700 text-gray-300' 
-                                : 'bg-gray-200 text-black border border-gray-400'
-                            }`}>
-                              <div className="font-semibold">{currency}</div>
-                              <div className="text-xs">{getExchangeRate(selectedCurrency, currency).toFixed(currency === 'JPY' ? 2 : 4)}</div>
-                            </div>
-                          ))}
                         </div>
                       </div>
                     ) : (
@@ -701,12 +689,12 @@
                             : 'bg-white text-gray-800 border-gray-300 focus:border-yellow-500'
                         }`}
                       >
-                        {['USD', 'EUR', 'JPY', 'GBP', 'AUD', 'CAD', 'CHF', 'CNY', 'HKD', 'NZD'].map((currency) => (
+                        {['USD', 'EUR', 'JPY', 'GBP', 'AUD', 'CAD', 'CHF', 'CNY', 'HKD', 'NZD', 'PLN', 'SEK'].map((currency) => (
                           <option key={currency} value={currency}>
                             {currency} - {getCurrencyName(currency)}
                           </option>
                         ))}
-                        {Object.keys(exchangeRates).filter(c => !['USD', 'EUR', 'JPY', 'GBP', 'AUD', 'CAD', 'CHF', 'CNY', 'HKD', 'NZD'].includes(c)).map((currency) => (
+                        {Object.keys(exchangeRates).filter(c => !['USD', 'EUR', 'JPY', 'GBP', 'AUD', 'CAD', 'CHF', 'CNY', 'HKD', 'NZD', 'PLN', 'SEK'].includes(c)).map((currency) => (
                           <option key={currency} value={currency}>
                             {currency} - {getCurrencyName(currency)}
                           </option>
@@ -737,12 +725,12 @@
                             : 'bg-white text-gray-800 border-gray-300 focus:border-yellow-500'
                         }`}
                       >
-                        {['USD', 'EUR', 'JPY', 'GBP', 'AUD', 'CAD', 'CHF', 'CNY', 'HKD', 'NZD'].filter(c => c !== selectedCurrency).map((currency) => (
+                        {['USD', 'EUR', 'JPY', 'GBP', 'AUD', 'CAD', 'CHF', 'CNY', 'HKD', 'NZD', 'PLN', 'SEK'].filter(c => c !== selectedCurrency).map((currency) => (
                           <option key={currency} value={currency}>
                             {currency} - {getCurrencyName(currency)}
                           </option>
                         ))}
-                        {Object.keys(exchangeRates).filter(c => c !== selectedCurrency && !['USD', 'EUR', 'JPY', 'GBP', 'AUD', 'CAD', 'CHF', 'CNY', 'HKD', 'NZD'].includes(c)).map((currency) => (
+                        {Object.keys(exchangeRates).filter(c => c !== selectedCurrency && !['USD', 'EUR', 'JPY', 'GBP', 'AUD', 'CAD', 'CHF', 'CNY', 'HKD', 'NZD', 'PLN', 'SEK'].includes(c)).map((currency) => (
                           <option key={currency} value={currency}>
                             {currency} - {getCurrencyName(currency)}
                           </option>
@@ -750,24 +738,9 @@
                       </select>
                     </div>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <div className="grid grid-cols-1 gap-2">
                     <Button variant="ib" onClick={() => performForexConversion(selectedToCurrency)} className="text-xs sm:text-sm">
                       Convert to {selectedToCurrency}
-                    </Button>
-                    <Button variant="function" onClick={() => {
-                      const rate = getExchangeRate(selectedCurrency, selectedToCurrency);
-                      setDisplay(String(rate.toFixed(6)));
-                      setWaitingForOperand(true);
-                    }} className="text-xs sm:text-sm">
-                      Get Rate
-                    </Button>
-                    <Button 
-                      variant="function" 
-                      onClick={fetchExchangeRates}
-                      disabled={isLoadingRates}
-                      className="text-xs sm:text-sm"
-                    >
-                      {isLoadingRates ? 'Updating...' : 'Update Rates'}
                     </Button>
                   </div>
                 </div>
